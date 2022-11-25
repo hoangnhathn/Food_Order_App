@@ -1,0 +1,329 @@
+{
+  "@@locale": "vi",
+  "yes": "Có",
+  "@yes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "no": "Không",
+  "@no": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "appName": "Food Order",
+  "@appName": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "getStarted": "Bắt đầu",
+  "@getStarted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "welcomeHeaven": "Welcome to your Heaven",
+  "@welcomeHeaven": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "haveAccount": "Bạn đã có tài khoản?",
+  "@haveAccount": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "logIn": "Đăng nhập",
+  "@logIn": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "welcomeTitle": "Hít 1 hơi sâu và bắt đầu hồi phục sức khỏe của bạn",
+  "@welcomeTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "signUp": "Đăng kí",
+  "@signUp": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "usernameEmail": "Username/Email",
+  "@usernameEmail": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "password": "Mật khẩu",
+  "@password": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "confirmPassword": "Xác nhận mật khẩu",
+  "@confirmPassword": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "errorValidUsername": "Tên đăng nhập chứa ít nhất 8 kí tự",
+  "@errorValidUsername": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "errorValidPassword": "Mật khẩu chứa ít nhất 8 kí tự",
+  "@errorValidPassword": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "errorPasswordMatch": "Mật khẩu không trùng khớp",
+  "@errorPasswordMatch": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "signUpWith": "Hoặc đăng kí với",
+  "@signUpWith": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "textContinue": "Tiếp tục",
+  "@textContinue": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cancel": "Bỏ qua",
+  "@cancel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tellWhatLove": "Nói với chúng tôi thứ bạn thích",
+  "@tellWhatLove": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingUp": "Thiết lập giấc ngủ của bạn...",
+  "@settingUp": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "goodMorning": "Chào buổi sáng, {name}",
+  "@goodMorning": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "goodAfternoon": "Chào buổi chiều, {name}",
+  "@goodAfternoon": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "goodEvening": "Chào buổi tối, {name}",
+  "@goodEvening": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "goodDay": "Chúng tôi chúc bạn một ngày tốt lành",
+  "@goodDay": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "workToday": "Bạn làm việc ngày hôm nay như nào?",
+  "@workToday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "recommended": "Gợi ý",
+  "@recommended": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "seeAll": "Xem tất cả",
+  "@seeAll": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "today": "Today",
+  "@today": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "favorite": "Yêu thích",
+  "@favorite": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "music": "Âm nhạc",
+  "@music": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "termNew": "Mới",
+  "@termNew": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "listenRelax": "Nghe để thư giãn",
+  "@listenRelax": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "search": "Tìm kiếm",
+  "@search": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "soundOfNature": "Âm thanh thiên nhiên",
+  "@soundOfNature": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sleepReminder": "Nhắc nhở giấc ngủ",
+  "@sleepReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sleepStories": "Câu chuyện về giấc ngủ",
+  "@sleepStories": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sleepMusic": "Nhạc ngủ",
+  "@sleepMusic": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "eveningMeditation": "Tịnh tâm buổi tối",
+  "@eveningMeditation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "back": "Quay lại",
+  "@back": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "course": "Khóa học",
+  "@course": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quickStart": "Khởi đầu nhanh",
+  "@quickStart": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "basicMeditation": "Khởi đầu nhanh",
+  "@basicMeditation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "beginnerLevel": "Khởi đầu nhanh",
+  "@beginnerLevel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "advancedLevel": "Khởi đầu nhanh",
+  "@advancedLevel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "expertLevel": "Khởi đầu nhanh",
+  "@expertLevel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "specialSituation": "Đặc biệt",
+  "@specialSituation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "termTotal": "Tổng",
+  "@termTotal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "termMonth": "Tháng",
+  "@termMonth": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "termYear": "Năm",
+  "@termYear": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "profile": "Hồ sơ",
+  "@profile": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "myMediation": "Khóa học của tôi",
+  "@myMediation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "editProfile": "Chỉnh sửa hồ sơ",
+  "@editProfile": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "setting": "Cài đặt",
+  "@setting": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "inviteFriends": "Mời bạn bè",
+  "@inviteFriends": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "licenceTitle": "Phiên bản phát triển",
+  "@licenceTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "numberSessions": "Số lượng bản nghe",
+  "@numberSessions": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "minutes": "Phút",
+  "@minutes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "current": "Hiện tại",
+  "@current": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "withYourself": "Cùng bản thân",
+  "@withYourself": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "play": "Bắt đầu",
+  "@play": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "welcomeBack": "Chào mừng trở lại",
+  "@welcomeBack": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createAccount": "Tạo tài khoản",
+  "@createAccount": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deliveryTo": "Giao tới",
+  "@deliveryTo": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "popularNear": "Nổi tiếng gần bạn",
+  "@popularNear": {
+    "type": "text",
+    "placeholders": {}
+  }
+}
