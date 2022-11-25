@@ -126,6 +126,5 @@ class HomePageState extends BasePageState<HomePage> {
         ),
       ],
     );
-
   }
 }
