@@ -6,7 +6,6 @@ import '../../common_widgets/base/base_page.dart';
 import '../../common_widgets/space_box.dart';
 import '../../data/repository/user_repository/user_repository.dart';
 import '../../gen/assets.gen.dart';
-import '../../resource/app_color.dart';
 import '../../resource/app_text_styles.dart';
 import 'home_state.dart';
 import 'home_view_model.dart';
