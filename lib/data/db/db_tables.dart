@@ -21,3 +21,15 @@ class DbUserInfoFields {
   static const username = 'username';
   static const password = 'password';
 }
+
+class DbFoodInfoFields {
+  DbFoodInfoFields._();
+
+  static const id = 'id';
+  static const title = 'title';
+  static const subTitle = 'subTitle';
+  static const price = 'price';
+  static const banner = 'banner';
+  static const time = 'time';
+  static const distance = 'distance';
+}

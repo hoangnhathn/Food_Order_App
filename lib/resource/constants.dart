@@ -1,5 +1,4 @@
-class Constants{
-
+class Constants {
   static const String isDeletedColumn = 'is_deleted';
 
   /// Input Size
@@ -8,4 +7,11 @@ class Constants{
 
   /// Regex
   static const characterAndNumberOnlyRegex = '[0-9a-zA-Z]';
+
+  /// Size Card - according to size of width screen
+  static const sizeMediumCard = 0.45;
+  static const sizeLargeCard = 0.8;
+
+  /// Space Width
+  static const double spaceWidth = 12;
 }
