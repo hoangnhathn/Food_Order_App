@@ -1,4 +1,5 @@
-import 'package:flutter/widgets.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 
 import '../../../resource/app_size.dart';
 import '../../../resource/constants.dart';
@@ -32,13 +33,25 @@ class CardBanner extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(15),
-              child: Image.network(
-                image,
+              child: CachedNetworkImage(
+                imageUrl: image,
                 width: context.sizes.width * 0.8,
+                fit: BoxFit.fitWidth,
+                placeholder: (context, url) => imageLoading(),
+                errorWidget: (context, url, error) => imageLoading(),
               ),
             )
           ],
         ),
+      ),
+    );
+  }
+
+  Widget imageLoading() {
+    return AspectRatio(
+      aspectRatio: Constants.dimensionImage,
+      child: Container(
+        color: Colors.black12,
       ),
     );
   }

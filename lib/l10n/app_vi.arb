@@ -345,5 +345,10 @@
   "@places": {
     "type": "text",
     "placeholders": {}
+  },
+  "searchDishRestaurant": "Tìm kiếm đồ ăn hoặc của hàng",
+  "@searchDishRestaurant": {
+    "type": "text",
+    "placeholders": {}
   }
 }

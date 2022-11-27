@@ -1,9 +1,9 @@
 extension IntExtension on int {
-  String distance() {
+  String get distanceStr {
     return '${this}m';
   }
 
-  String time() {
+  String get timeStr {
     return '${this}m';
   }
 

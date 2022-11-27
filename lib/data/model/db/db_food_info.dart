@@ -16,6 +16,7 @@ class DbFoodInfo extends DbBaseModel with _$DbFoodInfo {
     @JsonKey(name: DbFoodInfoFields.price) required double price,
     @JsonKey(name: DbFoodInfoFields.time) required int time,
     @JsonKey(name: DbFoodInfoFields.distance) required int distance,
+    @JsonKey(name: DbFoodInfoFields.category) required int category,
     @JsonKey(name: DbFoodInfoFields.id) int? id,
     @Default(4) int rating,
   }) = _DbFoodInfo;

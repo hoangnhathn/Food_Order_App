@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common_widgets/space_box.dart';
@@ -44,9 +45,11 @@ class LargeCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(15),
-              child: Image.network(
-                food.banner,
+              child: CachedNetworkImage(
+                imageUrl: food.banner,
                 fit: BoxFit.fitWidth,
+                placeholder: (context, url) => imageLoading(),
+                errorWidget: (context, url, error) => imageLoading(),
               ),
             ),
             Text(
@@ -67,17 +70,26 @@ class LargeCard extends StatelessWidget {
                 const Spacer(),
                 itemChip(
                   Assets.images.icLocationRed.path,
-                  food.distance.distance(),
+                  food.distance.distanceStr,
                 ),
                 const SpaceBox.width(),
                 itemChip(
                   Assets.images.icTimeRed.path,
-                  food.time.time(),
+                  food.time.timeStr,
                 )
               ],
             )
           ],
         ),
+      ),
+    );
+  }
+
+  Widget imageLoading() {
+    return AspectRatio(
+      aspectRatio: Constants.dimensionImage,
+      child: Container(
+        color: Colors.black12,
       ),
     );
   }

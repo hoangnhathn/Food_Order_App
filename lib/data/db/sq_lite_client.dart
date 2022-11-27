@@ -77,6 +77,23 @@ extension SQFLiteClientCreateTableExtension on SQFLiteClient {
     );
   }
 
+  Future<void> createFoodInfoTable(Database db) async {
+    return db.execute(
+      '''
+        CREATE TABLE ${DbTableNames.foodInfo}(
+          ${DbFoodInfoFields.id} INTEGER PRIMARY KEY AUTOINCREMENT,
+          ${DbFoodInfoFields.title} TEXT UNIQUE,
+          ${DbFoodInfoFields.subTitle} TEXT,
+          ${DbFoodInfoFields.banner} TEXT,
+          ${DbFoodInfoFields.time} INTEGER,
+          ${DbFoodInfoFields.price} REAL,
+          ${DbFoodInfoFields.distance} INTEGER,
+          ${DbFoodInfoFields.category} INTEGER 
+        )
+      ''',
+    );
+  }
+
   Future<DbUserInfoDao> get dbUserInfoDao async {
     if (_dbUserInfoDao != null) {
       return _dbUserInfoDao!;

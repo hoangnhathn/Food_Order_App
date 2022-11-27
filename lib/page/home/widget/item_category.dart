@@ -33,7 +33,7 @@ class ItemCategory extends StatelessWidget {
         ),
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
-          color: Colors.red,
+          color: category.color,
           borderRadius: BorderRadius.circular(15),
         ),
         child: Column(
