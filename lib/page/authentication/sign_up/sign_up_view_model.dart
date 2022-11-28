@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
+import 'package:logger/logger.dart';
 
 import '../../../data/model/db/db_user_info.dart';
 import '../../../data/provider/loading_state_provider.dart';
@@ -81,7 +82,7 @@ class SignUpViewModel extends StateNotifier<SignUpState> {
         ),
       );
     } catch (e) {
-      print('False');
+      Logger().d('');
     }
 
     reader.read(loadingStateProvider).toIdle();

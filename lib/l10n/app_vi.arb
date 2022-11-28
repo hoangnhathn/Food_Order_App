@@ -325,5 +325,30 @@
   "@popularNear": {
     "type": "text",
     "placeholders": {}
+  },
+  "exploreCategory": "Khám phá danh mục",
+  "@exploreCategory": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "viewMore": "Xem thêm",
+  "@viewMore": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "showAll": "Xem tất cả",
+  "@showAll": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "places": "Địa điểm",
+  "@places": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchDishRestaurant": "Tìm kiếm đồ ăn hoặc của hàng",
+  "@searchDishRestaurant": {
+    "type": "text",
+    "placeholders": {}
   }
 }

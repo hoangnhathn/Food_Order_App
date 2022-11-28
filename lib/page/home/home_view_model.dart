@@ -1,7 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../data/model/db/db_user_info.dart';
 import '../../data/repository/user_repository/user_repository.dart';
+import '../../dummy/banner.dart';
+import '../../dummy/categories.dart';
+import '../../dummy/food.dart';
 import 'home_state.dart';
 
 class HomeViewModel extends StateNotifier<HomeState> {
@@ -17,6 +19,10 @@ class HomeViewModel extends StateNotifier<HomeState> {
     final userInfo = await userRepository.getCurrentUser();
     state = state.copyWith(
       userInfo: userInfo!,
+      categories: dummyCategories,
+      banners: dummyBanners,
+      populars: dummyPopularFoods,
+      recommends: dummyRecommendFoods,
     );
   }
 }

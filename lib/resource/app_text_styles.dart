@@ -32,6 +32,12 @@ class AppTextStyles {
     fontSize: FontSize.font15.fontSize,
   );
 
+  /// Font Style: Poppins - Weight 400 - Size 15
+  static final TextStyle fontPoppinsBold18 = GoogleFonts.poppins(
+    fontWeight: FontWeight.w700,
+    fontSize: FontSize.font18.fontSize,
+  );
+
   /// Font Style: Poppins - Weight 700 - Size 22
   static final TextStyle fontPoppinsBold22 = GoogleFonts.poppins(
     fontWeight: FontWeight.w700,
@@ -68,9 +74,21 @@ class AppTextStyles {
     fontSize: FontSize.font15.fontSize,
   );
 
-  /// Font Style: OpenSans - Weight: 400 - Size 15
+  /// Font Style: OpenSans - Weight: 700 - Size 15
   static final TextStyle fontOpenSansBold15 = GoogleFonts.openSans(
     fontWeight: FontWeight.w700,
     fontSize: FontSize.font15.fontSize,
+  );
+
+  /// Font Style: OpenSans - Weight: 700 - Size 17
+  static final TextStyle fontOpenSansBold17 = GoogleFonts.openSans(
+    fontWeight: FontWeight.w700,
+    fontSize: FontSize.font17.fontSize,
+  );
+
+  /// Font Style: OpenSans - Weight: 700 - Size 18
+  static final TextStyle fontOpenSansBold18 = GoogleFonts.openSans(
+    fontWeight: FontWeight.w700,
+    fontSize: FontSize.font18.fontSize,
   );
 }
