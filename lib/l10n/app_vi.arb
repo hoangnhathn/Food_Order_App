@@ -350,5 +350,10 @@
   "@searchDishRestaurant": {
     "type": "text",
     "placeholders": {}
+  },
+  "category": "Thể loại",
+  "@category": {
+    "type": "text",
+    "placeholders": {}
   }
 }
