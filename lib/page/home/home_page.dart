@@ -14,6 +14,7 @@ import '../../gen/assets.gen.dart';
 import '../../navigation/app_route.dart';
 import '../../resource/app_text_styles.dart';
 import '../../resource/constants.dart';
+import '../food_detail/top/model/food_detail_top_arguments.dart';
 import 'home_state.dart';
 import 'home_view_model.dart';
 import 'widget/banner_card.dart';
@@ -144,7 +145,9 @@ class HomePageState extends BasePageState<HomePage> {
           ...populars.map((food) {
             return LargeCard(
               food: food,
-              onTap: () {},
+              onTap: () {
+                _navigateToFoodDetailPage(food.id ?? 0);
+              },
             );
           }).toList(),
         ],
@@ -185,7 +188,9 @@ class HomePageState extends BasePageState<HomePage> {
           ...recommends.map((food) {
             return MediumCard(
               food: food,
-              onTap: () {},
+              onTap: () {
+                _navigateToFoodDetailPage(food.id ?? 0);
+              },
               isLastItem: recommends.last == food,
             );
           }).toList(),
@@ -213,5 +218,12 @@ class HomePageState extends BasePageState<HomePage> {
         ],
       ),
     );
+  }
+
+  void _navigateToFoodDetailPage(int id) {
+    ref.read(appNavigatorProvider).navigateTo(
+          AppRoute.foodDetailPage,
+          arguments: FoodDetailTopArguments(id: id),
+        );
   }
 }

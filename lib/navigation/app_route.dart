@@ -13,4 +13,7 @@ class AppRoute {
 
   /// Category Page
   static const categoryPage = '/category';
+
+  /// Food Detail Page
+  static const foodDetailPage = '/foodDetail';
 }

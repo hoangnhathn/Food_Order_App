@@ -1,3 +1,7 @@
+import 'package:intl/intl.dart';
+
+import '../../resource/constants.dart';
+
 extension IntExtension on int {
   String get distanceStr {
     return '${this}m';
@@ -9,5 +13,14 @@ extension IntExtension on int {
 
   String address() {
     return '${this} địa điểm';
+  }
+
+  String get priceFormat {
+    if (abs() < Constants.minNumberToFormat) {
+      return toString();
+    }
+
+    final numberFormat = NumberFormat('#,###,000');
+    return numberFormat.format(this);
   }
 }
