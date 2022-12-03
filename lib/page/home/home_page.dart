@@ -8,8 +8,10 @@ import '../../common_widgets/control/line_title_transition.dart';
 import '../../common_widgets/space_box.dart';
 import '../../data/model/category/category_food.dart';
 import '../../data/model/db/db_food_info.dart';
+import '../../data/provider/app_navigator_provider.dart';
 import '../../data/repository/user_repository/user_repository.dart';
 import '../../gen/assets.gen.dart';
+import '../../navigation/app_route.dart';
 import '../../resource/app_text_styles.dart';
 import '../../resource/constants.dart';
 import 'home_state.dart';
@@ -104,7 +106,11 @@ class HomePageState extends BasePageState<HomePage> {
                 buildPopularItem(populars),
                 const SpaceBox.height(),
                 LineTitleTransition(
-                  onTap: () {},
+                  onTap: () {
+                    ref
+                        .read(appNavigatorProvider)
+                        .navigateTo(AppRoute.categoryPage);
+                  },
                   title: AppLocalizations.of(context)!.exploreCategory,
                   titleTransition: AppLocalizations.of(context)!.showAll,
                 ),

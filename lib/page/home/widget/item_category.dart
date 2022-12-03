@@ -10,15 +10,19 @@ class ItemCategory extends StatelessWidget {
   const ItemCategory({
     required this.category,
     required this.onTap,
-    required this.isLastItem,
+    this.isLastItem = false,
+    this.isPaddingRight = true,
     Key? key,
   }) : super(key: key);
 
   /// [category]
   final CategoryFood category;
 
-  ///
+  /// [isLastItem]
   final bool isLastItem;
+
+  /// [isPaddingRight]
+  final bool isPaddingRight;
 
   /// [onTap]
   final VoidCallback onTap;
@@ -29,7 +33,7 @@ class ItemCategory extends StatelessWidget {
       onTap: onTap,
       child: Container(
         margin: EdgeInsets.only(
-          right: isLastItem ? Constants.spaceWidth : 8,
+          right: isPaddingRight ? (isLastItem ? Constants.spaceWidth : 8) : 0,
         ),
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
@@ -37,6 +41,7 @@ class ItemCategory extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(

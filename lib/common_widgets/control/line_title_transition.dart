@@ -38,6 +38,7 @@ class LineTitleTransition extends StatelessWidget {
             ),
           ),
           InkWell(
+            onTap: onTap,
             child: Padding(
               padding: const EdgeInsets.only(
                 left: 5,
