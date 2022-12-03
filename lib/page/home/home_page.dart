@@ -107,7 +107,11 @@ class HomePageState extends BasePageState<HomePage> {
                 buildPopularItem(populars),
                 const SpaceBox.height(),
                 LineTitleTransition(
-                  onTap: () {},
+                  onTap: () {
+                    ref
+                        .read(appNavigatorProvider)
+                        .navigateTo(AppRoute.categoryPage);
+                  },
                   title: AppLocalizations.of(context)!.exploreCategory,
                   titleTransition: AppLocalizations.of(context)!.showAll,
                 ),

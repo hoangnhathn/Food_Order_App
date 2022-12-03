@@ -50,6 +50,12 @@ class AppTextStyles {
     fontSize: FontSize.font22.fontSize,
   );
 
+  /// Font Style: Poppins - Weight 400 - Size 18
+  static final TextStyle fontPoppinsRegular18 = GoogleFonts.poppins(
+    fontWeight: FontWeight.w400,
+    fontSize: FontSize.font18.fontSize,
+  );
+
   /// Font Style: Poppins - Weight 400 - Size 14
   static final TextStyle fontPoppinsRegular22 = GoogleFonts.poppins(
     fontWeight: FontWeight.w400,
