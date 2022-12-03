@@ -10,4 +10,7 @@ class AppRoute {
 
   /// SignUp Page
   static const signUpPage = '/signUp';
+
+  /// Food Detail Page
+  static const foodDetailPage = '/foodDetail';
 }

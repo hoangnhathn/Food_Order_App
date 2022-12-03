@@ -350,5 +350,40 @@
   "@searchDishRestaurant": {
     "type": "text",
     "placeholders": {}
+  },
+  "popularFood": "Nổi tiếng gần bạn",
+  "@popularFood": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "decreasingPriceFood": "Món đang giảm",
+  "@decreasingPriceFood": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "newFood": "Món mới",
+  "@newFood": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "waterDish": "Món nước",
+  "@waterDish": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fryFood": "Món xào",
+  "@fryFood": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "standardDelivery": "Giao hàng tiêu chuẩn",
+  "@standardDelivery": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "estimatedDelivery": "Dự kiến vào lúc",
+  "@estimatedDelivery": {
+    "type": "text",
+    "placeholders": {}
   }
 }

@@ -8,10 +8,13 @@ import '../../common_widgets/control/line_title_transition.dart';
 import '../../common_widgets/space_box.dart';
 import '../../data/model/category/category_food.dart';
 import '../../data/model/db/db_food_info.dart';
+import '../../data/provider/app_navigator_provider.dart';
 import '../../data/repository/user_repository/user_repository.dart';
 import '../../gen/assets.gen.dart';
+import '../../navigation/app_route.dart';
 import '../../resource/app_text_styles.dart';
 import '../../resource/constants.dart';
+import '../food_detail/top/model/food_detail_top_arguments.dart';
 import 'home_state.dart';
 import 'home_view_model.dart';
 import 'widget/banner_card.dart';
@@ -138,7 +141,9 @@ class HomePageState extends BasePageState<HomePage> {
           ...populars.map((food) {
             return LargeCard(
               food: food,
-              onTap: () {},
+              onTap: () {
+                _navigateToFoodDetailPage(food.id ?? 0);
+              },
             );
           }).toList(),
         ],
@@ -179,7 +184,9 @@ class HomePageState extends BasePageState<HomePage> {
           ...recommends.map((food) {
             return MediumCard(
               food: food,
-              onTap: () {},
+              onTap: () {
+                _navigateToFoodDetailPage(food.id ?? 0);
+              },
               isLastItem: recommends.last == food,
             );
           }).toList(),
@@ -207,5 +214,12 @@ class HomePageState extends BasePageState<HomePage> {
         ],
       ),
     );
+  }
+
+  void _navigateToFoodDetailPage(int id) {
+    ref.read(appNavigatorProvider).navigateTo(
+          AppRoute.foodDetailPage,
+          arguments: FoodDetailTopArguments(id: id),
+        );
   }
 }

@@ -16,5 +16,13 @@ class Constants {
   static const double spaceWidth = 12;
 
   /// Aspect Ratio
-  static const double dimensionImage = 1.6; /// 8 / 5
+  static const double dimensionImage = 1.6;
+
+  /// 8 / 5
+
+  /// Min number to Format With String
+  static const int minNumberToFormat = 1000;
+
+  /// Date Format
+  static const dateFormatHHMM = 'HH:mm';
 }
