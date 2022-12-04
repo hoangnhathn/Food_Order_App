@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../data/provider/cart_provider.dart';
 import '../../data/repository/user_repository/user_repository.dart';
 import '../../dummy/banner.dart';
 import '../../dummy/categories.dart';
@@ -16,6 +17,9 @@ class HomeViewModel extends StateNotifier<HomeState> {
   UserRepository userRepository;
 
   Future<void> init() async {
+    /// Init Cart
+    await reader.read(cartProvider.notifier).init();
+
     final userInfo = await userRepository.getCurrentUser();
     state = state.copyWith(
       userInfo: userInfo!,

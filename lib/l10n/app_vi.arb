@@ -390,5 +390,15 @@
   "@category": {
     "type": "text",
     "placeholders": {}
+  },
+  "quantity": "Số lượng",
+  "@quantity": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addToCart": "Thêm vào giỏ hàng",
+  "@addToCart": {
+    "type": "text",
+    "placeholders": {}
   }
 }

@@ -10,6 +10,7 @@ class LargeButton extends StatelessWidget {
     required this.title,
     required this.onTap,
     this.prefixIcon,
+    this.isLargeBorderRadius = true,
     this.buttonState = ButtonState.active,
     Key? key,
   }) : super(key: key);
@@ -22,6 +23,9 @@ class LargeButton extends StatelessWidget {
 
   /// Asset path Icon
   final String? prefixIcon;
+
+  /// [isLargeBorderRadius] radius border
+  final bool isLargeBorderRadius;
 
   /// Button State
   final ButtonState buttonState;
@@ -45,15 +49,25 @@ class LargeButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(
           vertical: 14,
+          horizontal: 12,
         ),
         decoration: BoxDecoration(
           color: backgroundColor(context),
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(
+            isLargeBorderRadius ? 25 : 12,
+          ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            if (buttonState == ButtonState.loading) ...[
+              const SizedBox(
+                width: 24,
+                height: 24,
+              ),
+              const Spacer(),
+            ],
             if (prefixIcon != null)
               Image.asset(
                 prefixIcon!,
@@ -67,6 +81,17 @@ class LargeButton extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
+            if (buttonState == ButtonState.loading) ...[
+              const Spacer(),
+              const SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  strokeWidth: 4,
+                  color: Colors.white,
+                ),
+              ),
+            ]
           ],
         ),
       ),

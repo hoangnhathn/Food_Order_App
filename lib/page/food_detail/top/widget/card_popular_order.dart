@@ -13,6 +13,7 @@ class CardPopularOrder extends StatelessWidget {
   const CardPopularOrder({
     required this.food,
     required this.onTap,
+    required this.onOrderTap,
     Key? key,
   }) : super(key: key);
 
@@ -21,6 +22,9 @@ class CardPopularOrder extends StatelessWidget {
 
   /// [onTap]
   final VoidCallback onTap;
+
+  /// [onOrderTap]
+  final VoidCallback onOrderTap;
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +110,7 @@ class CardPopularOrder extends StatelessWidget {
                   ),
                   const SpaceBox.width(5),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: onOrderTap,
                     child: Container(
                       margin: const EdgeInsets.only(
                         bottom: 5,

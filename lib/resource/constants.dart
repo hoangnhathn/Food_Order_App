@@ -23,6 +23,11 @@ class Constants {
   /// Min number to Format With String
   static const int minNumberToFormat = 1000;
 
+  /// Dummy Image
+  static const String dummyImage = 'https://images.foody.vn/res/g115/1148609/prof/s640x400/foody-upload-api-foody-mobile-av-08b82729-220822131550.jpeg';
+
   /// Date Format
   static const dateFormatHHMM = 'HH:mm';
+  static const dateFormatYYYYMMDDForwardSlash = 'yyyy/MM/dd';
+  static const fullDateFormat = 'yyyy/MM/dd HH:mm:ss';
 }
