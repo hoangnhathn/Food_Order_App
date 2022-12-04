@@ -5,6 +5,7 @@ class DbTableNames {
 
   static const userInfo = 'tb_user_info';
   static const foodInfo = 'tb_food_info';
+  static const cartInfo = 'tb_cart_info';
 }
 
 class DbLoginInfoFields {
@@ -23,6 +24,10 @@ class DbUserInfoFields {
   static const password = 'password';
 }
 
+class DbShopInfoFields {
+
+}
+
 class DbFoodInfoFields {
   DbFoodInfoFields._();
 
@@ -34,4 +39,15 @@ class DbFoodInfoFields {
   static const time = 'time';
   static const distance = 'distance';
   static const category = 'category';
+}
+
+class DbCartInfoFields {
+  DbCartInfoFields._();
+
+  static const id = 'id';
+  static const userInfoId = 'user_info_id';
+  static const foodInfoId = 'food_info_id';
+  static const quantity = 'quantity';
+  static const price = 'price';
+  static const time = 'time';
 }

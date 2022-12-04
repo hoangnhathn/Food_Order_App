@@ -5,11 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../common_widgets/base/base_page.dart';
 import '../../../common_widgets/space_box.dart';
 import '../../../data/model/db/db_food_info.dart';
+import '../../../data/provider/modal_bottom_sheet_provider.dart';
 import '../../../gen/assets.gen.dart';
 import '../../../resource/app_color.dart';
 import '../../../resource/app_text_styles.dart';
 import '../../../resource/constants.dart';
 import '../../../utils/extension/int_extension.dart';
+import '../order/food_detail_order_page.dart';
+import '../order/model/food_detail_order_arguments.dart';
 import 'food_detail_top_state.dart';
 import 'food_detail_top_view_model.dart';
 import 'model/food_detail_top_arguments.dart';
@@ -68,8 +71,7 @@ class FoodDetailPageState extends BasePageState<FoodDetailPage>
       onLeftTap: () {
         Navigator.of(context).pop();
       },
-      urlBackground:
-          'https://images.foody.vn/res/g115/1148609/prof/s640x400/foody-upload-api-foody-mobile-av-08b82729-220822131550.jpeg',
+      urlBackground: Constants.dummyImage,
       buildBody: SliverList(
         delegate: SliverChildListDelegate(
           <Widget>[
@@ -220,6 +222,17 @@ class FoodDetailPageState extends BasePageState<FoodDetailPage>
           ...popularFoods.map((food) {
             return CardPopularOrder(
               onTap: () {},
+              onOrderTap: () {
+                ref.read(modalBottomSheetProvider).showModal(
+                  builder: (context) {
+                    return FoodDetailOrderPage(
+                      arguments: FoodDetailOrderArguments(
+                        dbFoodInfo: food,
+                      ),
+                    );
+                  },
+                );
+              },
               food: food,
             );
           }).toList(),

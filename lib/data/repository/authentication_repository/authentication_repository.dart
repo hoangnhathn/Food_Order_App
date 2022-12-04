@@ -1,3 +1,4 @@
+import '../../../utils/extension/string_extension.dart';
 import '../../db/sq_lite_client.dart';
 import '../repository.dart';
 
@@ -6,9 +7,14 @@ const keyAppUserID = 'key_app_user_id';
 class AuthenticationRepository extends Repository {
   AuthenticationRepository(super.reader);
 
-  Future<bool> isAuthenticated() async {
+  Future<int?> getCurrentUserId() async {
     final userId = await secureStorage.read(key: keyAppUserID);
-    if (userId != null) {
+    return userId?.toInt();
+  }
+
+  Future<bool> isAuthenticated() async {
+    final currentUserId = await getCurrentUserId();
+    if (currentUserId != null) {
       return true;
     }
     return false;

@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import 'dao/db_cart_info_dao.dart';
 import 'dao/db_user_info_dao.dart';
 import 'db_tables.dart';
 
@@ -16,6 +17,7 @@ class SQFLiteClient {
 
   Database? _database;
   DbUserInfoDao? _dbUserInfoDao;
+  DbCartInfoDao? _dbCartInfoDao;
 
   Future<Database> get _db async {
     if (_database != null) {
@@ -61,6 +63,8 @@ extension SQFLiteClientCreateTableExtension on SQFLiteClient {
   Future<void> createTable(Database db) async {
     await createLoginInfoTable(db);
     await createUserInfoTable(db);
+    await createFoodInfoTable(db);
+    await createCartInfoTable(db);
   }
 
   Future<void> createLoginInfoTable(Database db) async {}
@@ -94,6 +98,25 @@ extension SQFLiteClientCreateTableExtension on SQFLiteClient {
     );
   }
 
+  Future<void> createCartInfoTable(Database db) async {
+    return db.execute(
+      '''
+        CREATE TABLE ${DbTableNames.cartInfo}(
+          ${DbCartInfoFields.id} INTEGER PRIMARY KEY AUTOINCREMENT,
+          ${DbCartInfoFields.quantity} INTEGER,
+          ${DbCartInfoFields.price} REAL,
+          ${DbCartInfoFields.time} TEXT,
+          ${DbCartInfoFields.userInfoId} INTEGER,
+          ${DbCartInfoFields.foodInfoId} INTEGER,
+          FOREIGN KEY (${DbCartInfoFields.userInfoId})
+          REFERENCES ${DbTableNames.userInfo}(${DbUserInfoFields.id}),
+          FOREIGN KEY (${DbCartInfoFields.foodInfoId})
+          REFERENCES ${DbTableNames.foodInfo}(${DbFoodInfoFields.id})
+        )
+      ''',
+    );
+  }
+
   Future<DbUserInfoDao> get dbUserInfoDao async {
     if (_dbUserInfoDao != null) {
       return _dbUserInfoDao!;
@@ -101,5 +124,14 @@ extension SQFLiteClientCreateTableExtension on SQFLiteClient {
     final db = await _db;
     _dbUserInfoDao = DbUserInfoDao(db: db);
     return _dbUserInfoDao!;
+  }
+
+  Future<DbCartInfoDao> get dbCartInfoDao async {
+    if (_dbCartInfoDao != null) {
+      return _dbCartInfoDao!;
+    }
+    final db = await _db;
+    _dbCartInfoDao = DbCartInfoDao(db: db);
+    return _dbCartInfoDao!;
   }
 }
