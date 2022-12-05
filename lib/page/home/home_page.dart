@@ -8,7 +8,9 @@ import '../../common_widgets/control/line_title_transition.dart';
 import '../../common_widgets/space_box.dart';
 import '../../data/model/category/category_food.dart';
 import '../../data/model/db/db_food_info.dart';
+import '../../data/model/db/db_shop_info.dart';
 import '../../data/provider/app_navigator_provider.dart';
+import '../../data/repository/home/home_repository.dart';
 import '../../data/repository/user_repository/user_repository.dart';
 import '../../gen/assets.gen.dart';
 import '../../navigation/app_route.dart';
@@ -24,6 +26,7 @@ import 'widget/medium_card.dart';
 
 final homeViewModel = StateNotifierProvider<HomeViewModel, HomeState>(
   (ref) => HomeViewModel(
+    homeRepository: HomeRepository(ref),
     userRepository: UserRepository(ref),
     reader: ref,
   ),
@@ -133,7 +136,7 @@ class HomePageState extends BasePageState<HomePage> {
     );
   }
 
-  Widget buildPopularItem(List<DbFoodInfo> populars) {
+  Widget buildPopularItem(List<DbShopInfo> populars) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
@@ -142,11 +145,13 @@ class HomePageState extends BasePageState<HomePage> {
           const SpaceBox.width(
             Constants.spaceWidth,
           ),
-          ...populars.map((food) {
+          ...populars.map((shop) {
             return LargeCard(
-              food: food,
+              shop: shop,
               onTap: () {
-                _navigateToFoodDetailPage(food.id ?? 0);
+                _navigateToFoodDetailPage(
+                  shopId: shop.id,
+                );
               },
             );
           }).toList(),
@@ -189,7 +194,10 @@ class HomePageState extends BasePageState<HomePage> {
             return MediumCard(
               food: food,
               onTap: () {
-                _navigateToFoodDetailPage(food.id ?? 0);
+                _navigateToFoodDetailPage(
+                  shopId: food.shopInfoId,
+                  foodId: food.id,
+                );
               },
               isLastItem: recommends.last == food,
             );
@@ -220,10 +228,16 @@ class HomePageState extends BasePageState<HomePage> {
     );
   }
 
-  void _navigateToFoodDetailPage(int id) {
+  void _navigateToFoodDetailPage({
+    int? foodId,
+    int? shopId,
+  }) {
     ref.read(appNavigatorProvider).navigateTo(
           AppRoute.foodDetailPage,
-          arguments: FoodDetailTopArguments(id: id),
+          arguments: FoodDetailTopArguments(
+            foodId: foodId,
+            shopId: shopId,
+          ),
         );
   }
 }

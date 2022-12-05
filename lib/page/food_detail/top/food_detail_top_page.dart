@@ -5,7 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../common_widgets/base/base_page.dart';
 import '../../../common_widgets/space_box.dart';
 import '../../../data/model/db/db_food_info.dart';
+import '../../../data/model/db/db_shop_info.dart';
 import '../../../data/provider/modal_bottom_sheet_provider.dart';
+import '../../../data/repository/food_detail_top/food_detail_top_repository.dart';
 import '../../../gen/assets.gen.dart';
 import '../../../resource/app_color.dart';
 import '../../../resource/app_text_styles.dart';
@@ -22,7 +24,10 @@ import 'widget/custom_sliver_app_bar.dart';
 
 final _provider = StateNotifierProvider.autoDispose<FoodDetailTopViewModel,
     FoodDetailTopState>(
-  (ref) => FoodDetailTopViewModel(),
+  (ref) => FoodDetailTopViewModel(
+    foodDetailTopRepository: FoodDetailTopRepository(ref),
+    reader: ref,
+  ),
 );
 
 class FoodDetailPage extends BasePage {
@@ -63,15 +68,15 @@ class FoodDetailPageState extends BasePageState<FoodDetailPage>
 
   @override
   Widget body(BuildContext context) {
-    final food = ref.watch(_provider).food;
+    final shop = ref.watch(_provider).shopInfo;
     final popularFoods = ref.watch(_provider).popularFoods;
     final filterCategoryFoods = ref.watch(_provider).filterCategoryFoods;
     return CustomSliverAppBar(
-      title: food.title,
+      title: shop?.name ?? '',
       onLeftTap: () {
         Navigator.of(context).pop();
       },
-      urlBackground: Constants.dummyImage,
+      urlBackground: shop?.banner ?? Constants.dummyImage,
       buildBody: SliverList(
         delegate: SliverChildListDelegate(
           <Widget>[
@@ -79,7 +84,7 @@ class FoodDetailPageState extends BasePageState<FoodDetailPage>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildShopInfoContainer(food),
+                  _buildShopInfoContainer(shop),
                   const SpaceBox.height(),
                   _buildDeliveryContainer(),
                   const SpaceBox.height(),
@@ -110,7 +115,8 @@ class FoodDetailPageState extends BasePageState<FoodDetailPage>
                                   ),
                                 ),
                               ),
-                              listPopularFood(popularFoods),
+                              if (popularFoods != null)
+                                listPopularFood(popularFoods),
                             ],
                           ),
                         )
@@ -129,7 +135,8 @@ class FoodDetailPageState extends BasePageState<FoodDetailPage>
                       onTap: (index) {},
                     ),
                   ),
-                  _buildListLargeOrder(filterCategoryFoods),
+                  if (filterCategoryFoods != null)
+                    _buildListLargeOrder(filterCategoryFoods),
                 ],
               ),
             ),
@@ -139,75 +146,79 @@ class FoodDetailPageState extends BasePageState<FoodDetailPage>
     );
   }
 
-  Widget _buildShopInfoContainer(DbFoodInfo food) {
-    return Container(
-      padding: const EdgeInsets.only(
-        top: 8,
-        bottom: 8,
-        left: Constants.spaceWidth,
-      ),
-      color: Colors.white,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset(
-                Assets.images.icProtected.path,
-                width: 20,
-                height: 20,
+  Widget _buildShopInfoContainer(DbShopInfo? shopInfo) {
+    if (shopInfo != null) {
+      return Container(
+        padding: const EdgeInsets.only(
+          top: 8,
+          bottom: 8,
+          left: Constants.spaceWidth,
+        ),
+        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  Assets.images.icProtected.path,
+                  width: 20,
+                  height: 20,
+                ),
+                const SpaceBox.width(),
+                Expanded(
+                  child: Text(
+                    shopInfo.name,
+                    style: AppTextStyles.fontPoppinsBold20.copyWith(
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SpaceBox.height(5),
+            Text(
+              shopInfo.title,
+              style: AppTextStyles.fontPoppinsRegular15.copyWith(
+                color: Colors.black38,
               ),
-              const SpaceBox.width(),
-              Expanded(
-                child: Text(
-                  food.title,
-                  style: AppTextStyles.fontPoppinsBold20.copyWith(
+            ),
+            const SpaceBox.height(),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  Assets.images.icStar.path,
+                  height: 15,
+                  width: 15,
+                ),
+                const SpaceBox.width(3),
+                Text(
+                  '${shopInfo.rating.toString()} (${shopInfo.comment}+ Bình luận)',
+                  style: AppTextStyles.fontPoppinsRegular15.copyWith(
                     color: Colors.black,
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SpaceBox.height(5),
-          Text(
-            food.subTitle,
-            style: AppTextStyles.fontPoppinsRegular15.copyWith(
-              color: Colors.black38,
-            ),
-          ),
-          const SpaceBox.height(),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset(
-                Assets.images.icStar.path,
-                height: 15,
-                width: 15,
-              ),
-              const SpaceBox.width(3),
-              Text(
-                '${food.rating.toString()} (999+ Bình luận)',
-                style: AppTextStyles.fontPoppinsRegular15.copyWith(
-                  color: Colors.black,
+                const Spacer(),
+                itemChip(
+                  Assets.images.icLocationRed.path,
+                  shopInfo.distance.distanceStr,
                 ),
-              ),
-              const Spacer(),
-              itemChip(
-                Assets.images.icLocationRed.path,
-                food.distance.distanceStr,
-              ),
-              const SpaceBox.width(),
-              itemChip(
-                Assets.images.icTimeRed.path,
-                food.time.timeStr,
-              ),
-              const SpaceBox.width(5),
-            ],
-          )
-        ],
-      ),
-    );
+                const SpaceBox.width(),
+                itemChip(
+                  Assets.images.icTimeRed.path,
+                  shopInfo.time.timeStr,
+                ),
+                const SpaceBox.width(5),
+              ],
+            )
+          ],
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 
   Widget listPopularFood(List<DbFoodInfo> popularFoods) {
@@ -223,15 +234,7 @@ class FoodDetailPageState extends BasePageState<FoodDetailPage>
             return CardPopularOrder(
               onTap: () {},
               onOrderTap: () {
-                ref.read(modalBottomSheetProvider).showModal(
-                  builder: (context) {
-                    return FoodDetailOrderPage(
-                      arguments: FoodDetailOrderArguments(
-                        dbFoodInfo: food,
-                      ),
-                    );
-                  },
-                );
+                _navigateToFoodOrderPage(food);
               },
               food: food,
             );
@@ -246,10 +249,13 @@ class FoodDetailPageState extends BasePageState<FoodDetailPage>
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) {
+        final food = filterCategoryFoods[index];
         return CardLargeOrder(
           onTap: () {},
-          onOrderTap: () {},
-          food: filterCategoryFoods[index],
+          onOrderTap: () {
+            _navigateToFoodOrderPage(food);
+          },
+          food: food,
         );
       },
       itemCount: filterCategoryFoods.length,
@@ -324,6 +330,18 @@ class FoodDetailPageState extends BasePageState<FoodDetailPage>
           ),
         ],
       ),
+    );
+  }
+
+  void _navigateToFoodOrderPage(DbFoodInfo food) {
+    ref.read(modalBottomSheetProvider).showModal(
+      builder: (context) {
+        return FoodDetailOrderPage(
+          arguments: FoodDetailOrderArguments(
+            dbFoodInfo: food,
+          ),
+        );
+      },
     );
   }
 

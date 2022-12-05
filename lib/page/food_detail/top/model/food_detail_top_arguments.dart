@@ -1,7 +1,9 @@
 class FoodDetailTopArguments {
   const FoodDetailTopArguments({
-    required this.id,
+    this.shopId,
+    this.foodId,
   });
 
-  final int id;
+  final int? shopId;
+  final int? foodId;
 }

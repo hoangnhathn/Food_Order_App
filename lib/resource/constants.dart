@@ -9,7 +9,7 @@ class Constants {
   static const characterAndNumberOnlyRegex = '[0-9a-zA-Z]';
 
   /// Size Card - according to size of width screen
-  static const sizeMediumCard = 0.5;
+  static const sizeMediumCard = 0.4;
   static const sizeLargeCard = 0.8;
 
   /// Space Width
@@ -24,7 +24,8 @@ class Constants {
   static const int minNumberToFormat = 1000;
 
   /// Dummy Image
-  static const String dummyImage = 'https://images.foody.vn/res/g115/1148609/prof/s640x400/foody-upload-api-foody-mobile-av-08b82729-220822131550.jpeg';
+  static const String dummyImage =
+      'https://images.foody.vn/res/g115/1148609/prof/s640x400/foody-upload-api-foody-mobile-av-08b82729-220822131550.jpeg';
 
   /// Date Format
   static const dateFormatHHMM = 'HH:mm';

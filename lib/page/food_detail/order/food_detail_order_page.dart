@@ -10,6 +10,7 @@ import '../../../data/model/enum/button_state.dart';
 import '../../../gen/assets.gen.dart';
 import '../../../resource/app_text_styles.dart';
 import '../../../resource/constants.dart';
+import '../../../utils/extension/int_extension.dart';
 import 'food_detail_order_state.dart';
 import 'food_detail_order_view_model.dart';
 import 'model/food_detail_order_arguments.dart';
@@ -51,7 +52,7 @@ class FoodDetailOrderPageState extends BasePageState<FoodDetailOrderPage> {
         }
       }
     });
-
+    final foodInfo = ref.watch(_provider).food;
     final quantity = ref.watch(_provider).quantity;
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -74,9 +75,9 @@ class FoodDetailOrderPageState extends BasePageState<FoodDetailOrderPage> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(50),
                   child: Image.network(
-                    'https://images.foody.vn/res/g115/1148609/prof/s100x100/foody-upload-api-foody-mobile-av-08b82729-220822131550.jpeg',
-                    width: 100,
-                    height: 100,
+                    foodInfo.banner,
+                    width: 110,
+                    height: 110,
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -89,14 +90,14 @@ class FoodDetailOrderPageState extends BasePageState<FoodDetailOrderPage> {
             children: [
               Expanded(
                 child: Text(
-                  'Đồ ăn vặt',
+                  foodInfo.title,
                   style: AppTextStyles.fontPoppinsRegular18.copyWith(
                     color: Colors.black,
                   ),
                 ),
               ),
               Text(
-                '12000 VND',
+                foodInfo.price.toInt().priceFormat,
                 style: AppTextStyles.fontPoppinsBold15.copyWith(
                   color: Colors.orangeAccent,
                 ),

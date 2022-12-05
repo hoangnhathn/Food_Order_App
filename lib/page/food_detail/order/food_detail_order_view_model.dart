@@ -15,7 +15,11 @@ class FoodDetailOrderViewModel extends StateNotifier<FoodDetailOrderState> {
 
   Ref reader;
 
-  void init(FoodDetailOrderArguments arguments) {}
+  void init(FoodDetailOrderArguments arguments) {
+    state = state.copyWith(
+      food: arguments.dbFoodInfo,
+    );
+  }
 
   void changeQuantity(bool isMinus) {
     final quantity = state.quantity;

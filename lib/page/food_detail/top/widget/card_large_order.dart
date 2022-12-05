@@ -44,7 +44,6 @@ class CardLargeOrder extends StatelessWidget {
               borderRadius: BorderRadius.circular(15),
               child: Image.network(
                 food.banner,
-                width: 110,
                 height: 110,
                 fit: BoxFit.fill,
               ),
@@ -82,7 +81,7 @@ class CardLargeOrder extends StatelessWidget {
                   ),
                   const SpaceBox.width(5),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: onOrderTap,
                     child: Container(
                       margin: const EdgeInsets.only(
                         bottom: 5,
