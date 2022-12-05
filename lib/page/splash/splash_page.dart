@@ -1,12 +1,22 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../common_widgets/base/base_page.dart';
 import '../../common_widgets/logo_image.dart';
 import '../../data/provider/app_navigator_provider.dart';
+import '../../data/repository/splash_repository/splash_repository.dart';
 import '../../navigation/app_route.dart';
+import 'splash_state.dart';
 import 'splash_view_model.dart';
+
+final _provider = StateNotifierProvider<SplashViewModel, SplashState>(
+  (ref) => SplashViewModel(
+    repository: SplashRepository(ref),
+    read: ref,
+  ),
+);
 
 class SplashPage extends BasePage {
   const SplashPage({Key? key}) : super(key: key);
@@ -21,7 +31,7 @@ class SplashPageState extends BasePageState<SplashPage> {
     super.onInitState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(splashViewModel.notifier).init();
+      ref.read(_provider.notifier).init();
     });
 
     Future.delayed(
@@ -93,7 +103,7 @@ class SplashPageState extends BasePageState<SplashPage> {
 
   Future<void> onAuthenticate() async {
     final isAuthenticated =
-        await ref.read(splashViewModel.notifier).authenticateApp();
+        await ref.read(_provider.notifier).authenticateApp();
     if (isAuthenticated) {
       await ref.read(appNavigatorProvider).navigateTo(
             AppRoute.loginPage,

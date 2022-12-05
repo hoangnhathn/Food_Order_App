@@ -47,9 +47,10 @@ class MediumCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(20),
               child: CachedNetworkImage(
                 imageUrl: food.banner,
+                width: context.sizes.width * Constants.sizeMediumCard,
                 placeholder: (context, url) => imageLoading(),
                 errorWidget: (context, url, error) => imageLoading(),
               ),
@@ -63,28 +64,32 @@ class MediumCard extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
             const SpaceBox.height(3),
-            Text(
-              food.subTitle,
-              style: AppTextStyles.fontPoppinsRegular14.copyWith(
-                color: Colors.black26,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  Assets.images.icStar.path,
+                  height: 15,
+                  width: 15,
+                ),
+                const SpaceBox.width(3),
+                Text(
+                  food.favorite.toString(),
+                  style: AppTextStyles.fontPoppinsRegular14.copyWith(
+                    color: Colors.black26,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
             ),
             const SpaceBox.height(3),
-            Row(
-              children: [
-                itemChip(
-                  Assets.images.icLocationRed.path,
-                  food.distance.distanceStr,
-                ),
-                const SpaceBox.width(),
-                itemChip(
-                  Assets.images.icTimeRed.path,
-                  food.time.timeStr,
-                )
-              ],
-            )
+            Text(
+              food.price.toInt().priceFormat,
+              style: AppTextStyles.fontPoppinsBold15.copyWith(
+                color: Colors.orangeAccent,
+              ),
+            ),
           ],
         ),
       ),

@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common_widgets/space_box.dart';
-import '../../../data/model/db/db_food_info.dart';
+import '../../../data/model/db/db_shop_info.dart';
 import '../../../gen/assets.gen.dart';
 import '../../../resource/app_size.dart';
 import '../../../resource/app_text_styles.dart';
@@ -12,13 +12,13 @@ import '../../../utils/extension/int_extension.dart';
 /// [LargeCard] is widget
 class LargeCard extends StatelessWidget {
   const LargeCard({
-    required this.food,
+    required this.shop,
     required this.onTap,
     Key? key,
   }) : super(key: key);
 
   /// [food]
-  final DbFoodInfo food;
+  final DbShopInfo shop;
 
   /// [onTap]
   final VoidCallback onTap;
@@ -46,20 +46,20 @@ class LargeCard extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(15),
               child: CachedNetworkImage(
-                imageUrl: food.banner,
+                imageUrl: shop.banner,
                 fit: BoxFit.fitWidth,
                 placeholder: (context, url) => imageLoading(),
                 errorWidget: (context, url, error) => imageLoading(),
               ),
             ),
             Text(
-              food.title,
+              shop.name,
               style: AppTextStyles.fontPoppinsBold18.copyWith(
                 color: Colors.black,
               ),
             ),
             Text(
-              food.subTitle,
+              shop.title,
               style: AppTextStyles.fontPoppinsRegular15.copyWith(
                 color: Colors.black45,
               ),
@@ -70,13 +70,13 @@ class LargeCard extends StatelessWidget {
                 const Spacer(),
                 itemChip(
                   Assets.images.icLocationRed.path,
-                  food.distance.distanceStr,
+                  shop.distance.distanceStr,
                 ),
                 const SpaceBox.width(),
                 itemChip(
                   Assets.images.icTimeRed.path,
-                  food.time.timeStr,
-                )
+                  shop.time.timeStr,
+                ),
               ],
             )
           ],

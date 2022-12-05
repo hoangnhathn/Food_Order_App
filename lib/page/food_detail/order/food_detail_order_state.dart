@@ -15,7 +15,7 @@ class FoodDetailOrderState with _$FoodDetailOrderState {
   }) = _FoodDetailOrderState;
 
   factory FoodDetailOrderState.initial() => FoodDetailOrderState(
-        food: dummyPopularFoods[0],
+        food: dummyFoods[0],
         formStatus: FormzStatus.pure,
       );
 }

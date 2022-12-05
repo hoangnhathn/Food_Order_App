@@ -3,6 +3,8 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'dao/db_cart_info_dao.dart';
+import 'dao/db_food_info_dao.dart';
+import 'dao/db_shop_info_dao.dart';
 import 'dao/db_user_info_dao.dart';
 import 'db_tables.dart';
 
@@ -17,6 +19,8 @@ class SQFLiteClient {
 
   Database? _database;
   DbUserInfoDao? _dbUserInfoDao;
+  DbShopInfoDao? _dbShopInfoDao;
+  DbFoodInfoDao? _dbFoodInfoDao;
   DbCartInfoDao? _dbCartInfoDao;
 
   Future<Database> get _db async {
@@ -63,6 +67,7 @@ extension SQFLiteClientCreateTableExtension on SQFLiteClient {
   Future<void> createTable(Database db) async {
     await createLoginInfoTable(db);
     await createUserInfoTable(db);
+    await createShopInfoTable(db);
     await createFoodInfoTable(db);
     await createCartInfoTable(db);
   }
@@ -81,18 +86,37 @@ extension SQFLiteClientCreateTableExtension on SQFLiteClient {
     );
   }
 
+  Future<void> createShopInfoTable(Database db) async {
+    return db.execute(
+      '''
+        CREATE TABLE ${DbTableNames.shopInfo}(
+          ${DbShopInfoFields.id} INTEGER PRIMARY KEY AUTOINCREMENT,
+          ${DbShopInfoFields.name} TEXT UNIQUE,
+          ${DbShopInfoFields.title} TEXT,
+          ${DbShopInfoFields.banner} TEXT,
+          ${DbShopInfoFields.rating} REAL,
+          ${DbShopInfoFields.comment} INTEGER,
+          ${DbShopInfoFields.time} INTEGER,
+          ${DbShopInfoFields.distance} INTEGER 
+        )
+      ''',
+    );
+  }
+
   Future<void> createFoodInfoTable(Database db) async {
     return db.execute(
       '''
         CREATE TABLE ${DbTableNames.foodInfo}(
           ${DbFoodInfoFields.id} INTEGER PRIMARY KEY AUTOINCREMENT,
+          ${DbFoodInfoFields.shopInfoId} INTEGER,
           ${DbFoodInfoFields.title} TEXT UNIQUE,
-          ${DbFoodInfoFields.subTitle} TEXT,
           ${DbFoodInfoFields.banner} TEXT,
-          ${DbFoodInfoFields.time} INTEGER,
+          ${DbFoodInfoFields.favorite} INTEGER,
           ${DbFoodInfoFields.price} REAL,
-          ${DbFoodInfoFields.distance} INTEGER,
-          ${DbFoodInfoFields.category} INTEGER 
+          ${DbFoodInfoFields.sold} INTEGER,
+          ${DbFoodInfoFields.category} INTEGER,
+          FOREIGN KEY (${DbFoodInfoFields.shopInfoId})
+          REFERENCES ${DbTableNames.shopInfo}(${DbShopInfoFields.id})
         )
       ''',
     );
@@ -124,6 +148,24 @@ extension SQFLiteClientCreateTableExtension on SQFLiteClient {
     final db = await _db;
     _dbUserInfoDao = DbUserInfoDao(db: db);
     return _dbUserInfoDao!;
+  }
+
+  Future<DbShopInfoDao> get dbShopInfoDao async {
+    if (_dbShopInfoDao != null) {
+      return _dbShopInfoDao!;
+    }
+    final db = await _db;
+    _dbShopInfoDao = DbShopInfoDao(db: db);
+    return _dbShopInfoDao!;
+  }
+
+  Future<DbFoodInfoDao> get dbFoodInfoDao async {
+    if (_dbFoodInfoDao != null) {
+      return _dbFoodInfoDao!;
+    }
+    final db = await _db;
+    _dbFoodInfoDao = DbFoodInfoDao(db: db);
+    return _dbFoodInfoDao!;
   }
 
   Future<DbCartInfoDao> get dbCartInfoDao async {

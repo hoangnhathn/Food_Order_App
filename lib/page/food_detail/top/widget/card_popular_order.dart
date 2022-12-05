@@ -6,6 +6,7 @@ import '../../../../resource/app_color.dart';
 import '../../../../resource/app_size.dart';
 import '../../../../resource/app_text_styles.dart';
 import '../../../../resource/constants.dart';
+import '../../../../utils/extension/db_food_info_extension.dart';
 import '../../../../utils/extension/int_extension.dart';
 import '../../../../utils/extension/string_extension.dart';
 
@@ -70,7 +71,7 @@ class CardPopularOrder extends StatelessWidget {
                       color: Colors.amber,
                     ),
                     child: Text(
-                      '1000 Sold',
+                      food.soldStr,
                       style: AppTextStyles.fontPoppinsRegular15,
                     ),
                   ),
