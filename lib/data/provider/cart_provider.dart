@@ -43,14 +43,13 @@ class CartProvider extends StateNotifier<List<DbCartInfo>> {
       userInfoId: currentUserId,
     );
 
+    print('Cart Add $cartAdd');
+
     try {
-      final idCartAdded = await cartRepository.addCart(cartAdd);
+     await cartRepository.addCart(cartAdd);
 
       /// Update
-      state = [
-        ...state,
-        cartAdd.copyWith(id: idCartAdded),
-      ];
+      await init();
     } catch (e) {
       print(e);
     }

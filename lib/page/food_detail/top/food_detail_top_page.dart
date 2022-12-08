@@ -6,21 +6,26 @@ import '../../../common_widgets/base/base_page.dart';
 import '../../../common_widgets/space_box.dart';
 import '../../../data/model/db/db_food_info.dart';
 import '../../../data/model/db/db_shop_info.dart';
+import '../../../data/provider/app_navigator_provider.dart';
 import '../../../data/provider/modal_bottom_sheet_provider.dart';
 import '../../../data/repository/food_detail_top/food_detail_top_repository.dart';
 import '../../../gen/assets.gen.dart';
+import '../../../navigation/app_route.dart';
 import '../../../resource/app_color.dart';
 import '../../../resource/app_text_styles.dart';
 import '../../../resource/constants.dart';
 import '../../../utils/extension/int_extension.dart';
+import '../final_confirm_order/model/final_confirm_order_arguments.dart';
 import '../order/food_detail_order_page.dart';
 import '../order/model/food_detail_order_arguments.dart';
+import '../widget/card_popular_order.dart';
 import 'food_detail_top_state.dart';
 import 'food_detail_top_view_model.dart';
 import 'model/food_detail_top_arguments.dart';
 import 'widget/card_large_order.dart';
-import 'widget/card_popular_order.dart';
 import 'widget/custom_sliver_app_bar.dart';
+
+const double heightBottomOrder = 60;
 
 final _provider = StateNotifierProvider.autoDispose<FoodDetailTopViewModel,
     FoodDetailTopState>(
@@ -71,78 +76,92 @@ class FoodDetailPageState extends BasePageState<FoodDetailPage>
     final shop = ref.watch(_provider).shopInfo;
     final popularFoods = ref.watch(_provider).popularFoods;
     final filterCategoryFoods = ref.watch(_provider).filterCategoryFoods;
-    return CustomSliverAppBar(
-      title: shop?.name ?? '',
-      onLeftTap: () {
-        Navigator.of(context).pop();
-      },
-      urlBackground: shop?.banner ?? Constants.dummyImage,
-      buildBody: SliverList(
-        delegate: SliverChildListDelegate(
-          <Widget>[
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildShopInfoContainer(shop),
-                  const SpaceBox.height(),
-                  _buildDeliveryContainer(),
-                  const SpaceBox.height(),
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 8,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 8,
-                                  horizontal: Constants.spaceWidth,
-                                ),
-                                child: Text(
-                                  AppLocalizations.of(context)!.popularFood,
-                                  style: AppTextStyles.fontOpenSansRegular15
-                                      .copyWith(
-                                    color: Colors.deepOrange,
+    final carts = ref.watch(_provider).carts;
+    return Stack(
+      children: [
+        CustomSliverAppBar(
+          title: shop?.name ?? '',
+          onLeftTap: () {
+            Navigator.of(context).pop();
+          },
+          urlBackground: shop?.banner ?? Constants.dummyImage,
+          buildBody: SliverList(
+            delegate: SliverChildListDelegate(
+              <Widget>[
+                SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildShopInfoContainer(shop),
+                      const SpaceBox.height(),
+                      _buildDeliveryContainer(),
+                      const SpaceBox.height(),
+                      Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 8,
+                                      horizontal: Constants.spaceWidth,
+                                    ),
+                                    child: Text(
+                                      AppLocalizations.of(context)!.popularFood,
+                                      style: AppTextStyles.fontOpenSansRegular15
+                                          .copyWith(
+                                        color: Colors.deepOrange,
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                  if (popularFoods != null)
+                                    listPopularFood(popularFoods),
+                                ],
                               ),
-                              if (popularFoods != null)
-                                listPopularFood(popularFoods),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                            )
+                          ],
+                        ),
+                      ),
+                      DefaultTabController(
+                        length: 3,
+                        child: TabBar(
+                          indicatorColor: Colors.deepOrange,
+                          tabs: [
+                            tabFilter(AppLocalizations.of(context)!.newFood),
+                            tabFilter(AppLocalizations.of(context)!.waterDish),
+                            tabFilter(AppLocalizations.of(context)!.fryFood),
+                          ],
+                          onTap: (index) {},
+                        ),
+                      ),
+                      if (filterCategoryFoods != null)
+                        _buildListLargeOrder(filterCategoryFoods),
+                      if (carts?.isNotEmpty ?? false)
+                        const SpaceBox.height(heightBottomOrder),
+                    ],
                   ),
-                  DefaultTabController(
-                    length: 3,
-                    child: TabBar(
-                      indicatorColor: Colors.deepOrange,
-                      tabs: [
-                        tabFilter(AppLocalizations.of(context)!.newFood),
-                        tabFilter(AppLocalizations.of(context)!.waterDish),
-                        tabFilter(AppLocalizations.of(context)!.fryFood),
-                      ],
-                      onTap: (index) {},
-                    ),
-                  ),
-                  if (filterCategoryFoods != null)
-                    _buildListLargeOrder(filterCategoryFoods),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+        if (carts?.isNotEmpty ?? false)
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: bottomOrderCart(),
+          )
+      ],
     );
   }
 
@@ -219,6 +238,70 @@ class FoodDetailPageState extends BasePageState<FoodDetailPage>
     } else {
       return Container();
     }
+  }
+
+  Future<void> _navigateToFinalConfirmOrder() async {
+    await ref.read(appNavigatorProvider).navigateTo(
+          AppRoute.finalConfirmationOrderPage,
+          arguments: FinalConfirmOrderArguments(
+            shopId: widget.arguments.shopId ?? 0,
+          ),
+        );
+    await ref.read(_provider.notifier).refreshCart();
+  }
+
+  Widget bottomOrderCart() {
+    return Container(
+      height: heightBottomOrder,
+      decoration: const BoxDecoration(color: Colors.white),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(
+              left: Constants.spaceWidth,
+            ),
+            child: Image.asset(
+              Assets.images.icShoppingCart.path,
+              height: 30,
+              width: 30,
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          const Spacer(),
+          Text(
+            ref.watch(_provider).totalPrice.toString(),
+            style: AppTextStyles.fontPoppinsBold15.copyWith(
+              color: Colors.white,
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              _navigateToFinalConfirmOrder();
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 15,
+              ),
+              decoration: const BoxDecoration(
+                color: Colors.teal,
+              ),
+              child: Center(
+                child: Text(
+                  AppLocalizations.of(context)!.shipOrder,
+                  style: AppTextStyles.fontPoppinsRegular15.copyWith(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget listPopularFood(List<DbFoodInfo> popularFoods) {
@@ -333,8 +416,8 @@ class FoodDetailPageState extends BasePageState<FoodDetailPage>
     );
   }
 
-  void _navigateToFoodOrderPage(DbFoodInfo food) {
-    ref.read(modalBottomSheetProvider).showModal(
+  Future<void> _navigateToFoodOrderPage(DbFoodInfo food) async {
+    await ref.read(modalBottomSheetProvider).showModal(
       builder: (context) {
         return FoodDetailOrderPage(
           arguments: FoodDetailOrderArguments(
@@ -343,6 +426,7 @@ class FoodDetailPageState extends BasePageState<FoodDetailPage>
         );
       },
     );
+    await ref.read(_provider.notifier).refreshCart();
   }
 
   Widget itemChip(String icon, String content) {

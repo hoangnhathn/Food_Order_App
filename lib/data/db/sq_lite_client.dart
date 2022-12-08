@@ -4,6 +4,8 @@ import 'package:sqflite/sqflite.dart';
 
 import 'dao/db_cart_info_dao.dart';
 import 'dao/db_food_info_dao.dart';
+import 'dao/db_order_info_dao.dart';
+import 'dao/db_order_item_info_dao.dart';
 import 'dao/db_shop_info_dao.dart';
 import 'dao/db_user_info_dao.dart';
 import 'db_tables.dart';
@@ -22,6 +24,8 @@ class SQFLiteClient {
   DbShopInfoDao? _dbShopInfoDao;
   DbFoodInfoDao? _dbFoodInfoDao;
   DbCartInfoDao? _dbCartInfoDao;
+  DbOrderInfoDao? _dbOrderInfoDao;
+  DbOrderItemInfoDao? _dbOrderItemInfoDao;
 
   Future<Database> get _db async {
     if (_database != null) {
@@ -70,6 +74,8 @@ extension SQFLiteClientCreateTableExtension on SQFLiteClient {
     await createShopInfoTable(db);
     await createFoodInfoTable(db);
     await createCartInfoTable(db);
+    await createOrderInfoTable(db);
+    await createOrderItemInfoTable(db);
   }
 
   Future<void> createLoginInfoTable(Database db) async {}
@@ -141,6 +147,43 @@ extension SQFLiteClientCreateTableExtension on SQFLiteClient {
     );
   }
 
+  Future<void> createOrderInfoTable(Database db) async {
+    return db.execute(
+      '''
+        CREATE TABLE ${DbTableNames.orderInfo}(
+          ${DbOrderInfoFields.id} INTEGER PRIMARY KEY AUTOINCREMENT,
+          ${DbOrderInfoFields.time} TEXT,
+          ${DbOrderInfoFields.userInfoId} INTEGER,
+          ${DbOrderInfoFields.shopInfoId} INTEGER,
+          FOREIGN KEY (${DbOrderInfoFields.userInfoId})
+          REFERENCES ${DbTableNames.userInfo}(${DbUserInfoFields.id}),
+          FOREIGN KEY (${DbOrderInfoFields.shopInfoId})
+          REFERENCES ${DbTableNames.shopInfo}(${DbShopInfoFields.id})
+        )
+      ''',
+    );
+  }
+
+  Future<void> createOrderItemInfoTable(Database db) async {
+    return db.execute(
+      '''
+        CREATE TABLE ${DbTableNames.orderItemInfo}(
+          ${DbOrderItemInfoFields.id} INTEGER PRIMARY KEY AUTOINCREMENT,
+          ${DbOrderItemInfoFields.quantity} INTEGER,
+          ${DbOrderItemInfoFields.price} REAL,
+          ${DbOrderItemInfoFields.title} TEXT,
+          ${DbOrderItemInfoFields.banner} INTEGER,
+          ${DbOrderItemInfoFields.foodInfoId} INTEGER,
+          ${DbOrderItemInfoFields.orderInfoId} INTEGER,
+          FOREIGN KEY (${DbOrderItemInfoFields.foodInfoId})
+          REFERENCES ${DbTableNames.foodInfo}(${DbFoodInfoFields.id}),
+          FOREIGN KEY (${DbOrderItemInfoFields.orderInfoId})
+          REFERENCES ${DbTableNames.orderInfo}(${DbOrderInfoFields.id})
+        )
+      ''',
+    );
+  }
+
   Future<DbUserInfoDao> get dbUserInfoDao async {
     if (_dbUserInfoDao != null) {
       return _dbUserInfoDao!;
@@ -175,5 +218,23 @@ extension SQFLiteClientCreateTableExtension on SQFLiteClient {
     final db = await _db;
     _dbCartInfoDao = DbCartInfoDao(db: db);
     return _dbCartInfoDao!;
+  }
+
+  Future<DbOrderInfoDao> get dbOrderInfoDao async {
+    if (_dbOrderInfoDao != null) {
+      return _dbOrderInfoDao!;
+    }
+    final db = await _db;
+    _dbOrderInfoDao = DbOrderInfoDao(db: db);
+    return _dbOrderInfoDao!;
+  }
+
+  Future<DbOrderItemInfoDao> get dbOrderItemInfoDao async {
+    if (_dbOrderItemInfoDao != null) {
+      return _dbOrderItemInfoDao!;
+    }
+    final db = await _db;
+    _dbOrderItemInfoDao = DbOrderItemInfoDao(db: db);
+    return _dbOrderItemInfoDao!;
   }
 }

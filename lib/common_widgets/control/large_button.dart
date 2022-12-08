@@ -10,6 +10,7 @@ class LargeButton extends StatelessWidget {
     required this.title,
     required this.onTap,
     this.prefixIcon,
+    this.isBoldText = true,
     this.isLargeBorderRadius = true,
     this.buttonState = ButtonState.active,
     Key? key,
@@ -26,6 +27,9 @@ class LargeButton extends StatelessWidget {
 
   /// [isLargeBorderRadius] radius border
   final bool isLargeBorderRadius;
+
+  /// [isBoldText]
+  final bool isBoldText;
 
   /// Button State
   final ButtonState buttonState;
@@ -77,9 +81,13 @@ class LargeButton extends StatelessWidget {
             Text(
               title,
               textAlign: TextAlign.center,
-              style: AppTextStyles.fontPoppinsBold15.copyWith(
-                color: Colors.white,
-              ),
+              style: isBoldText
+                  ? AppTextStyles.fontPoppinsBold15.copyWith(
+                      color: Colors.white,
+                    )
+                  : AppTextStyles.fontPoppinsRegular15.copyWith(
+                      color: Colors.white,
+                    ),
             ),
             if (buttonState == ButtonState.loading) ...[
               const Spacer(),
