@@ -23,4 +23,7 @@ class AppRoute {
   /// Final Confirmation Order Page
   static const finalConfirmationOrderPage =
       '/foodDetail/final_confirmation_order';
+
+  /// Cart List Page
+  static const cartListPage = '/cartList';
 }

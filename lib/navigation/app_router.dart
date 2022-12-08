@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../page/authentication/login/login_page.dart';
 import '../page/authentication/sign_up/sign_up_page.dart';
+import '../page/cart_list/cart_list_page.dart';
 import '../page/category/category_page.dart';
 import '../page/food_detail/final_confirm_order/final_confirm_order_page.dart';
 import '../page/food_detail/final_confirm_order/model/final_confirm_order_arguments.dart';
@@ -58,6 +59,10 @@ class AppRouter {
           builder: (context) => FinalConfirmOrderPage(
             arguments: settings.arguments as FinalConfirmOrderArguments,
           ),
+        );
+      case AppRoute.cartListPage:
+        return MaterialPageRoute(
+          builder: (context) => const CartListPage(),
         );
     }
     return null;
