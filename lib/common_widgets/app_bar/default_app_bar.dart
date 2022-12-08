@@ -38,7 +38,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.white,
       leading: buildLeftContent(context),
       actions: buildActions(context),
       centerTitle: true,

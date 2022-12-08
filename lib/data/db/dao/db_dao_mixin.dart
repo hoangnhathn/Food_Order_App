@@ -82,6 +82,14 @@ mixin DbDaoMixin<T extends DbBaseModel> {
     );
   }
 
+  Future<void> rawDelete({
+    required String queryString,
+  }) async {
+    await db.rawDelete(
+      queryString,
+    );
+  }
+
   Future<int> deleteAll() async {
     return db.rawDelete('DELETE FROM $table');
   }
@@ -96,7 +104,37 @@ mixin DbDaoMixin<T extends DbBaseModel> {
       object.toJson(),
       where: '$field = ?',
       whereArgs: [arg],
-      conflictAlgorithm: ConflictAlgorithm.replace,
+      conflictAlgorithm: ConflictAlgorithm.fail,
+    );
+  }
+
+  Future<int> updateTwoFields({
+    required DbBaseModel object,
+    required String field1,
+    required String field2,
+    required arg1,
+    required arg2,
+  }) async {
+    return db.update(
+      table,
+      object.toJson(),
+      where: '$field1 = ? AND $field2 = ?',
+      whereArgs: [arg1, arg2],
+      conflictAlgorithm: ConflictAlgorithm.fail,
+    );
+  }
+
+  Future<int> deleteTwoFields({
+    required DbBaseModel object,
+    required String field1,
+    required String field2,
+    required arg1,
+    required arg2,
+  }) async {
+    return db.delete(
+      table,
+      where: '$field1 = ? AND $field2 = ?',
+      whereArgs: [arg1, arg2],
     );
   }
 

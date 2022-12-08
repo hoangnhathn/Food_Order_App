@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common_widgets/space_box.dart';
-import '../../../../data/model/db/db_food_info.dart';
-import '../../../../resource/app_color.dart';
-import '../../../../resource/app_size.dart';
-import '../../../../resource/app_text_styles.dart';
-import '../../../../resource/constants.dart';
-import '../../../../utils/extension/db_food_info_extension.dart';
-import '../../../../utils/extension/int_extension.dart';
-import '../../../../utils/extension/string_extension.dart';
+import '../../../common_widgets/space_box.dart';
+import '../../../data/model/db/db_food_info.dart';
+import '../../../resource/app_color.dart';
+import '../../../resource/app_size.dart';
+import '../../../resource/app_text_styles.dart';
+import '../../../resource/constants.dart';
+import '../../../utils/extension/db_food_info_extension.dart';
+import '../../../utils/extension/int_extension.dart';
+import '../../../utils/extension/string_extension.dart';
 
 class CardPopularOrder extends StatelessWidget {
   const CardPopularOrder({

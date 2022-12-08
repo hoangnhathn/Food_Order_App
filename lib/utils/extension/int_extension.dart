@@ -23,4 +23,8 @@ extension IntExtension on int {
     final numberFormat = NumberFormat('#,###,000');
     return numberFormat.format(this);
   }
+
+  String get formatQuantity {
+    return '$this x';
+  }
 }

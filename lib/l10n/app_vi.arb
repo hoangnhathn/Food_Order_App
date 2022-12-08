@@ -400,5 +400,32 @@
   "@addToCart": {
     "type": "text",
     "placeholders": {}
+  },
+  "confirmOrder": "Xác nhận đơn hàng",
+  "@confirmOrder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "placeOrder": "Đặt đơn - {price}",
+  "@placeOrder": {
+    "type": "text",
+    "placeholders": {
+      "price": {}
+    }
+  },
+  "shipOrder": "Giao hàng",
+  "@shipOrder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shippingAddress": "Địa chỉ giao hàng",
+  "@shippingAddress": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "orderExtraFoods": "Khách đặt các món này cũng đặt thêm",
+  "@orderExtraFoods": {
+    "type": "text",
+    "placeholders": {}
   }
 }

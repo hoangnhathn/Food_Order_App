@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../page/authentication/login/login_page.dart';
 import '../page/authentication/sign_up/sign_up_page.dart';
 import '../page/category/category_page.dart';
+import '../page/food_detail/final_confirm_order/final_confirm_order_page.dart';
+import '../page/food_detail/final_confirm_order/model/final_confirm_order_arguments.dart';
 import '../page/food_detail/order/food_detail_order_page.dart';
 import '../page/food_detail/order/model/food_detail_order_arguments.dart';
 import '../page/food_detail/top/food_detail_top_page.dart';
@@ -49,6 +51,12 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (context) => FoodDetailOrderPage(
             arguments: settings.arguments as FoodDetailOrderArguments,
+          ),
+        );
+      case AppRoute.finalConfirmationOrderPage:
+        return MaterialPageRoute(
+          builder: (context) => FinalConfirmOrderPage(
+            arguments: settings.arguments as FinalConfirmOrderArguments,
           ),
         );
     }

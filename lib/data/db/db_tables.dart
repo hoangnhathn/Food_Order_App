@@ -7,6 +7,8 @@ class DbTableNames {
   static const shopInfo = 'tb_shop_info';
   static const foodInfo = 'tb_food_info';
   static const cartInfo = 'tb_cart_info';
+  static const orderInfo = 'tb_order_info';
+  static const orderItemInfo = 'tb_order_item_info';
 }
 
 class DbLoginInfoFields {
@@ -60,4 +62,26 @@ class DbCartInfoFields {
   static const quantity = 'quantity';
   static const price = 'price';
   static const time = 'time';
+  static const isActive = 'is_active';
+}
+
+class DbOrderInfoFields {
+  DbOrderInfoFields._();
+
+  static const id = 'id';
+  static const userInfoId = 'user_info_id';
+  static const shopInfoId = 'shop_info_id';
+  static const time = 'time';
+}
+
+class DbOrderItemInfoFields {
+  DbOrderItemInfoFields._();
+
+  static const id = 'id';
+  static const orderInfoId = 'order_info_id';
+  static const foodInfoId = 'food_info_id';
+  static const title = 'title';
+  static const banner = 'banner';
+  static const quantity = 'quantity';
+  static const price = 'price';
 }

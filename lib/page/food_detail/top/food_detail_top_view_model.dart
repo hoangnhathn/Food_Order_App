@@ -18,12 +18,18 @@ class FoodDetailTopViewModel extends StateNotifier<FoodDetailTopState> {
 
   Future<void> init(FoodDetailTopArguments arguments) async {
     final dateTime = DateTime.now();
-    final estimatedDelivery = dateTime.add(const Duration(minutes: 12));
 
     final shopInfo =
         await foodDetailTopRepository.getShopInfo(arguments.shopId!);
     final foodItemInfo =
         await foodDetailTopRepository.getFoodItemByShopInfo(arguments.shopId!);
+
+    final cartItemInfo =
+        await foodDetailTopRepository.getCartItemInfo(arguments.shopId!);
+
+    final estimatedDelivery = dateTime.add(
+      Duration(minutes: shopInfo?.time ?? 0),
+    );
 
     state = state.copyWith(
       shopInfo: shopInfo,
@@ -32,6 +38,16 @@ class FoodDetailTopViewModel extends StateNotifier<FoodDetailTopState> {
       estimateDelivery: estimatedDelivery.dateString(
         Constants.dateFormatHHMM,
       ),
+      carts: cartItemInfo,
+    );
+  }
+
+  Future<void> refreshCart() async {
+    final cartItemInfo =
+        await foodDetailTopRepository.getCartItemInfo(state.shopInfo?.id ?? 1);
+
+    state = state.copyWith(
+      carts: cartItemInfo,
     );
   }
 }
