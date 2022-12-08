@@ -43,8 +43,6 @@ class CartProvider extends StateNotifier<List<DbCartInfo>> {
       userInfoId: currentUserId,
     );
 
-    print('Cart Add $cartAdd');
-
     try {
      await cartRepository.addCart(cartAdd);
 
