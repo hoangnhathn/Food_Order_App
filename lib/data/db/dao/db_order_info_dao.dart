@@ -34,23 +34,4 @@ class DbOrderInfoDao with DbDaoMixin {
     );
     return maps.map((map) => DbCartInfo.fromJson(map)).toList();
   }
-
-  // Future<List<DbCartInfo>> getCartsByUserAndShop({
-  //   required int userInfoId,
-  //   required int shopInfoId,
-  // }) async {
-  //   final joinQuery =
-  //       'INNER JOIN $_userInfoTableName ON $_tableName.$_userInfoId = $_userInfoTableName.$_userIdColumn';
-  //
-  //   final conditionQuery =
-  //       "$_foodInfoId IN (SELECT $_foodIdInfoColumn FROM $_foodInfoTableName WHERE $_shopIdInfoColumn = '$shopInfoId')";
-  //
-  //   final select = 'SELECT * from $_tableName $joinQuery WHERE $conditionQuery';
-  //
-  //   final maps = await getRaw(
-  //     queryString: select,
-  //     args: [],
-  //   );
-  //   return maps.map((map) => DbCartInfo.fromJson(map)).toList();
-  // }
 }
