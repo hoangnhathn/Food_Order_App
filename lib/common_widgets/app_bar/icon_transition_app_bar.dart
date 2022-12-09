@@ -7,7 +7,15 @@ import '../../resource/constants.dart';
 import '../space_box.dart';
 
 class IconTransitionAppBar extends StatelessWidget {
-  const IconTransitionAppBar({Key? key}) : super(key: key);
+  const IconTransitionAppBar({
+    required this.onCartTap,
+    required this.onProfileTap,
+    Key? key,
+  }) : super(key: key);
+
+  final VoidCallback onCartTap;
+
+  final VoidCallback onProfileTap;
 
   @override
   Widget build(BuildContext context) {
@@ -48,18 +56,37 @@ class IconTransitionAppBar extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: Colors.white,
-                width: 2,
+          GestureDetector(
+            onTap: onCartTap,
+            child: Container(
+              padding: const EdgeInsets.all(5),
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.tealAccent,
+              ),
+              child: Image.asset(
+                Assets.images.icShoppingCart.path,
+                height: 25,
+                width: 25,
               ),
             ),
-            child: const CircleAvatar(
-              radius: 18,
-              backgroundImage: NetworkImage(
-                'https://scontent.fhan14-2.fna.fbcdn.net/v/t1.6435-9/142915405_106600208107240_8287176908190349092_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=aDGoq4IonMwAX9bSeKE&tn=y9erCs1Wd2HJw9GZ&_nc_ht=scontent.fhan14-2.fna&oh=00_AfBGGEUWjM4lDDQUcY64V1EuhGelAQXQzdufNzVvyQT5Wg&oe=63A86D46',
+          ),
+          const SpaceBox.width(12),
+          GestureDetector(
+            onTap: onProfileTap,
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Colors.white,
+                  width: 2,
+                ),
+              ),
+              child: const CircleAvatar(
+                radius: 18,
+                backgroundImage: NetworkImage(
+                  'https://scontent.fhan14-2.fna.fbcdn.net/v/t1.6435-9/142915405_106600208107240_8287176908190349092_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=aDGoq4IonMwAX9bSeKE&tn=y9erCs1Wd2HJw9GZ&_nc_ht=scontent.fhan14-2.fna&oh=00_AfBGGEUWjM4lDDQUcY64V1EuhGelAQXQzdufNzVvyQT5Wg&oe=63A86D46',
+                ),
               ),
             ),
           )

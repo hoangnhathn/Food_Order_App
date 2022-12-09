@@ -1,5 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../data/model/db/db_cart_info.dart';
+import '../../../data/model/db/db_food_info.dart';
+import '../../../data/model/db/db_shop_info.dart';
 import '../../../data/repository/food_detail_top/food_detail_top_repository.dart';
 import '../../../resource/constants.dart';
 import '../../../utils/extension/date_time_extension.dart';
@@ -19,13 +22,27 @@ class FoodDetailTopViewModel extends StateNotifier<FoodDetailTopState> {
   Future<void> init(FoodDetailTopArguments arguments) async {
     final dateTime = DateTime.now();
 
-    final shopInfo =
-        await foodDetailTopRepository.getShopInfo(arguments.shopId!);
-    final foodItemInfo =
-        await foodDetailTopRepository.getFoodItemByShopInfo(arguments.shopId!);
+    DbShopInfo? shopInfo;
+    var popularFoodItemInfo = <DbFoodInfo>[];
+    var cartItemInfo = <DbCartInfo>[];
 
-    final cartItemInfo =
-        await foodDetailTopRepository.getCartItemInfo(arguments.shopId!);
+    if (arguments.shopId == null) {
+      final foodItem =
+          await foodDetailTopRepository.getFoodItemById(arguments.foodId ?? 0);
+      shopInfo = await foodDetailTopRepository.getShopInfo(foodItem.shopInfoId);
+      popularFoodItemInfo = await foodDetailTopRepository
+          .getFoodItemByShopInfo(foodItem.shopInfoId);
+      cartItemInfo =
+          await foodDetailTopRepository.getCartItemInfo(foodItem.shopInfoId);
+    } else {
+      shopInfo = await foodDetailTopRepository.getShopInfo(arguments.shopId!);
+
+      popularFoodItemInfo = await foodDetailTopRepository
+          .getFoodItemByShopInfo(arguments.shopId!);
+
+      cartItemInfo =
+          await foodDetailTopRepository.getCartItemInfo(arguments.shopId!);
+    }
 
     final estimatedDelivery = dateTime.add(
       Duration(minutes: shopInfo?.time ?? 0),
@@ -33,8 +50,8 @@ class FoodDetailTopViewModel extends StateNotifier<FoodDetailTopState> {
 
     state = state.copyWith(
       shopInfo: shopInfo,
-      popularFoods: foodItemInfo,
-      filterCategoryFoods: foodItemInfo,
+      popularFoods: popularFoodItemInfo,
+      filterCategoryFoods: popularFoodItemInfo,
       estimateDelivery: estimatedDelivery.dateString(
         Constants.dateFormatHHMM,
       ),

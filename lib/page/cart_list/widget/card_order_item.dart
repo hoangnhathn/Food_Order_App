@@ -1,29 +1,23 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common_widgets/space_box.dart';
-import '../../../../resource/app_text_styles.dart';
-import '../../../../resource/constants.dart';
-import '../../../../utils/extension/int_extension.dart';
-import '../../../../utils/extension/string_extension.dart';
-import '../model/cart_food.dart';
+import '../../../common_widgets/space_box.dart';
+import '../../../data/model/db/db_order_item_info.dart';
+import '../../../resource/app_text_styles.dart';
+import '../../../resource/constants.dart';
+import '../../../utils/extension/int_extension.dart';
+import '../../../utils/extension/string_extension.dart';
 
-class CardOrderExpand extends StatelessWidget {
-  const CardOrderExpand({
-    required this.cartFood,
-    required this.onTap,
+class CardOrderItem extends StatelessWidget {
+  const CardOrderItem({
+    required this.orderItem,
     Key? key,
   }) : super(key: key);
 
-  ///
-  final CartFood cartFood;
-
-  /// [onTap]
-  final VoidCallback onTap;
+  final DbOrderItemInfo orderItem;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: Constants.spaceWidth,
@@ -31,7 +25,7 @@ class CardOrderExpand extends StatelessWidget {
         child: Row(
           children: [
             Image.network(
-              cartFood.food.banner,
+              orderItem.banner,
               height: 60,
               width: 60,
             ),
@@ -39,7 +33,7 @@ class CardOrderExpand extends StatelessWidget {
             SizedBox(
               width: 30,
               child: Text(
-                cartFood.quantity.formatQuantity,
+                orderItem.quantity.formatQuantity,
                 style: AppTextStyles.fontPoppinsBold15.copyWith(
                   color: Colors.black,
                 ),
@@ -49,7 +43,7 @@ class CardOrderExpand extends StatelessWidget {
             const SpaceBox.width(),
             Expanded(
               child: Text(
-                cartFood.food.title,
+                orderItem.title,
                 style: AppTextStyles.fontPoppinsRegular15.copyWith(
                   color: Colors.black,
                 ),
@@ -68,5 +62,5 @@ class CardOrderExpand extends StatelessWidget {
     );
   }
 
-  double get totalPrice => cartFood.food.price * cartFood.quantity;
+  double get totalPrice => orderItem.price * orderItem.quantity;
 }

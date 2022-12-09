@@ -35,4 +35,10 @@ class FoodDetailTopRepository extends Repository {
     );
     return cartItemInfo;
   }
+
+  Future<DbFoodInfo> getFoodItemById(int id) async {
+    final dbFoodInfoDao = await (await sqfLiteClient()).dbFoodInfoDao;
+    final foodItemInfo = await dbFoodInfoDao.getFoodItemById(id: id);
+    return foodItemInfo;
+  }
 }
