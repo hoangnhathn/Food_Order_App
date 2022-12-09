@@ -121,4 +121,11 @@ class AppTextStyles {
     fontWeight: FontWeight.w700,
     fontSize: FontSize.font18.fontSize,
   );
+
+  /// Font Style: Overpass - Weight: 700 - Size 16
+  static final TextStyle fontPoppinsBold16 = GoogleFonts.poppins(
+    fontWeight: FontWeight.w700,
+    fontSize: FontSize.font16.fontSize,
+  );
+
 }

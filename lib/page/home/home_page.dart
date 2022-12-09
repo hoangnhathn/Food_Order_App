@@ -68,7 +68,9 @@ class HomePageState extends BasePageState<HomePage> {
           onCartTap: () {
             _navigateToCartListPage();
           },
-          onProfileTap: () {},
+          onProfileTap: () {
+            _navigateToProfilePage();
+          },
         ),
         Padding(
           padding: const EdgeInsets.symmetric(
@@ -282,6 +284,12 @@ class HomePageState extends BasePageState<HomePage> {
             searchConditionType: type,
             categoryId: categoryId,
           ),
+        );
+  }
+
+  void _navigateToProfilePage() {
+    ref.read(appNavigatorProvider).navigateTo(
+          AppRoute.profilePage,
         );
   }
 }

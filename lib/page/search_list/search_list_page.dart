@@ -132,7 +132,11 @@ class SearchListPageState extends BasePageState<SearchListPage> {
         final shop = shops[index];
         return LargeCard(
           shop: shop,
-          onTap: () {},
+          onTap: () {
+            _navigateToFoodDetailPage(
+              shop.id ?? 0,
+            );
+          },
           isExpanded: true,
         );
       },
