@@ -14,7 +14,9 @@ class HomeRepository extends Repository {
 
   Future<List<DbFoodInfo>> getAllFoodItems() async {
     final dbFoodInfoDao = await (await sqfLiteClient()).dbFoodInfoDao;
-    final dbFoodItemInfo = await dbFoodInfoDao.getAllObject();
+    final dbFoodItemInfo = await dbFoodInfoDao.getAllObject(
+      limit: 10,
+    );
     return dbFoodItemInfo;
   }
 }

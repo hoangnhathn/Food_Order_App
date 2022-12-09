@@ -11,6 +11,8 @@ class DbFoodInfoDao with DbDaoMixin {
 
   final _tableName = DbTableNames.foodInfo;
   final _idColumn = DbFoodInfoFields.id;
+  final _category = DbFoodInfoFields.category;
+
   final _shopInfoIdColumn = DbFoodInfoFields.shopInfoId;
 
   @override
@@ -33,8 +35,13 @@ class DbFoodInfoDao with DbDaoMixin {
     return maps.map((map) => DbFoodInfo.fromJson(map)).toList();
   }
 
-  Future<List<DbFoodInfo>> getAllObject() async {
-    final maps = await getAll();
+  Future<List<DbFoodInfo>> getFoodByCategory({required int categoryId}) async {
+    final maps = await get(field: _category, arg: categoryId);
+    return maps.map((map) => DbFoodInfo.fromJson(map)).toList();
+  }
+
+  Future<List<DbFoodInfo>> getAllObject({int? limit}) async {
+    final maps = await getAll(limit: limit);
     return maps.map((map) => DbFoodInfo.fromJson(map)).toList();
   }
 }

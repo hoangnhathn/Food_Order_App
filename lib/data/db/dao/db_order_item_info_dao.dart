@@ -1,5 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 
+import '../../model/db/db_cart_info.dart';
 import '../../model/db/db_order_item_info.dart';
 import '../db_tables.dart';
 import 'db_dao_mixin.dart';
@@ -32,6 +33,17 @@ class DbOrderItemInfoDao with DbDaoMixin {
 
   @override
   String get table => _tableName;
+
+  // Future<List<DbCartInfo>> getCartsByUser(int userInfoId) async {
+  //   final joinQuery =
+  //       'INNER JOIN $_userInfoTableName ON $_tableName.$_userInfoId = $_userInfoTableName.$_userIdColumn';
+  //   final select = 'SELECT * from $_tableName $joinQuery';
+  //   final maps = await getRaw(
+  //     queryString: select,
+  //     args: [],
+  //   );
+  //   return maps.map((map) => DbCartInfo.fromJson(map)).toList();
+  // }
 
   Future<List<DbOrderItemInfo>> getOrderItemsByUser(int userInfoId) async {
     final joinQuery =

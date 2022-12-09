@@ -10,8 +10,9 @@ import '../../../../utils/extension/string_extension.dart';
 class CardLargeOrder extends StatelessWidget {
   const CardLargeOrder({
     required this.onTap,
-    required this.onOrderTap,
     required this.food,
+    this.onOrderTap,
+    this.isEnableAdd = true,
     Key? key,
   }) : super(key: key);
 
@@ -22,7 +23,10 @@ class CardLargeOrder extends StatelessWidget {
   final VoidCallback onTap;
 
   /// [onOrderTap]
-  final VoidCallback onOrderTap;
+  final VoidCallback? onOrderTap;
+
+  /// [isEnableAdd]
+  final bool isEnableAdd;
 
   @override
   Widget build(BuildContext context) {
@@ -80,24 +84,25 @@ class CardLargeOrder extends StatelessWidget {
                     ),
                   ),
                   const SpaceBox.width(5),
-                  GestureDetector(
-                    onTap: onOrderTap,
-                    child: Container(
-                      margin: const EdgeInsets.only(
-                        bottom: 5,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          5,
+                  if (isEnableAdd)
+                    GestureDetector(
+                      onTap: onOrderTap,
+                      child: Container(
+                        margin: const EdgeInsets.only(
+                          bottom: 5,
                         ),
-                        color: Colors.deepOrange,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            5,
+                          ),
+                          color: Colors.deepOrange,
+                        ),
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        ),
                       ),
-                      child: const Icon(
-                        Icons.add,
-                        color: Colors.white,
-                      ),
-                    ),
-                  )
+                    )
                 ],
               ),
             ),

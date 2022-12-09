@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/model/db/db_cart_info.dart';
 import '../../data/model/db/db_food_info.dart';
-import '../../data/repository/cart_list_respository.dart';
+import '../../data/repository/cart_list/cart_list_respository.dart';
 import '../food_detail/final_confirm_order/model/cart_food.dart';
 import 'cart_list_state.dart';
 

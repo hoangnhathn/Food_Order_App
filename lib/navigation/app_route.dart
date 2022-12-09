@@ -26,4 +26,7 @@ class AppRoute {
 
   /// Cart List Page
   static const cartListPage = '/cartList';
+
+  /// Cart List Page
+  static const searchListPage = '/searchListPage';
 }

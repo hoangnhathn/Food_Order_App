@@ -17,6 +17,8 @@ import '../../navigation/app_route.dart';
 import '../../resource/app_text_styles.dart';
 import '../../resource/constants.dart';
 import '../food_detail/top/model/food_detail_top_arguments.dart';
+import '../search_list/model/search_condition_type.dart';
+import '../search_list/model/search_list_arguments.dart';
 import 'home_state.dart';
 import 'home_view_model.dart';
 import 'widget/banner_card.dart';
@@ -69,9 +71,16 @@ class HomePageState extends BasePageState<HomePage> {
           onProfileTap: () {},
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 8,
+          ),
           child: GestureDetector(
-            onTap: () {},
+            onTap: () {
+              _navigateToSearchListPage(
+                SearchConditionType.viewSearchInput,
+              );
+            },
             child: Container(
               padding: const EdgeInsets.symmetric(
                 vertical: 10,
@@ -108,7 +117,11 @@ class HomePageState extends BasePageState<HomePage> {
             child: Column(
               children: [
                 LineTitleTransition(
-                  onTap: () {},
+                  onTap: () {
+                    _navigateToSearchListPage(
+                      SearchConditionType.viewAllShop,
+                    );
+                  },
                   title: AppLocalizations.of(context)!.popularNear,
                   titleTransition: AppLocalizations.of(context)!.viewMore,
                 ),
@@ -125,7 +138,11 @@ class HomePageState extends BasePageState<HomePage> {
                 ),
                 buildItemCategory(categories),
                 LineTitleTransition(
-                  onTap: () {},
+                  onTap: () {
+                    _navigateToSearchListPage(
+                      SearchConditionType.viewAllFood,
+                    );
+                  },
                   title: AppLocalizations.of(context)!.recommended,
                   titleTransition: AppLocalizations.of(context)!.showAll,
                 ),
@@ -177,7 +194,12 @@ class HomePageState extends BasePageState<HomePage> {
           ...categories.map((category) {
             return ItemCategory(
               category: category,
-              onTap: () {},
+              onTap: () {
+                _navigateToSearchListPage(
+                  SearchConditionType.viewByCategory,
+                  categoryId: category.id,
+                );
+              },
               isLastItem: categories.last == category,
             );
           }).toList(),
@@ -233,6 +255,10 @@ class HomePageState extends BasePageState<HomePage> {
     );
   }
 
+  void _navigateToCartListPage() {
+    ref.read(appNavigatorProvider).navigateTo(AppRoute.cartListPage);
+  }
+
   void _navigateToFoodDetailPage({
     int? foodId,
     int? shopId,
@@ -246,7 +272,16 @@ class HomePageState extends BasePageState<HomePage> {
         );
   }
 
-  void _navigateToCartListPage() {
-    ref.read(appNavigatorProvider).navigateTo(AppRoute.cartListPage);
+  void _navigateToSearchListPage(
+    SearchConditionType type, {
+    int? categoryId,
+  }) {
+    ref.read(appNavigatorProvider).navigateTo(
+          AppRoute.searchListPage,
+          arguments: SearchListArguments(
+            searchConditionType: type,
+            categoryId: categoryId,
+          ),
+        );
   }
 }

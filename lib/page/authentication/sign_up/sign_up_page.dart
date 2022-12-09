@@ -146,6 +146,7 @@ class SignUpPageState extends BasePageState<SignUpPage> {
                       const SpaceBox.height(25),
                       LargeButton(
                         onTap: () {
+                          FocusScope.of(context).unfocus();
                           ref.read(signUpViewModel.notifier).submitSignUp();
                         },
                         title: AppLocalizations.of(context)!.signUp,
