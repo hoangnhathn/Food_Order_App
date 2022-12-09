@@ -19,6 +19,13 @@ class DbFoodInfoDao with DbDaoMixin {
   @override
   String get table => _tableName;
 
+  Future<DbFoodInfo> getFoodItemById({
+    required int id,
+  }) async {
+    final maps = await get(field: _idColumn, arg: id);
+    return DbFoodInfo.fromJson(maps.first);
+  }
+
   Future<List<DbFoodInfo>> getFoodItemByShopInfo({
     required int id,
   }) async {

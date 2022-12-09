@@ -427,5 +427,20 @@
   "@orderExtraFoods": {
     "type": "text",
     "placeholders": {}
+  },
+  "orderTerm": "Order",
+  "@orderTerm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cartTerm": "Cart",
+  "@cartTerm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "myOrder": "My Order",
+  "@myOrder": {
+    "type": "text",
+    "placeholders": {}
   }
 }

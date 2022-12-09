@@ -62,7 +62,12 @@ class HomePageState extends BasePageState<HomePage> {
     final populars = ref.watch(homeViewModel).populars;
     return Column(
       children: [
-        const IconTransitionAppBar(),
+        IconTransitionAppBar(
+          onCartTap: () {
+            _navigateToCartListPage();
+          },
+          onProfileTap: () {},
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: GestureDetector(
@@ -239,5 +244,9 @@ class HomePageState extends BasePageState<HomePage> {
             shopId: shopId,
           ),
         );
+  }
+
+  void _navigateToCartListPage() {
+    ref.read(appNavigatorProvider).navigateTo(AppRoute.cartListPage);
   }
 }

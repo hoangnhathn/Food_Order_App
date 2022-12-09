@@ -170,6 +170,7 @@ class LoginPageState extends BasePageState<LoginPage> {
     if (await ref.read(loginViewModel.notifier).submitLogin()) {
       await ref.read(appNavigatorProvider).navigateTo(
             AppRoute.homePage,
+            shouldClearStack: true,
           );
     }
   }
