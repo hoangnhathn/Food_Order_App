@@ -7,6 +7,7 @@ import '../space_box.dart';
 class InputTextArea extends StatefulWidget {
   const InputTextArea({
     this.title,
+    this.backgroundColor = Colors.white54,
     this.secondTitle,
     this.initialText,
     this.hintText,
@@ -27,6 +28,9 @@ class InputTextArea extends StatefulWidget {
 
   /// Title of text area
   final String? title;
+
+  /// Background Color of input
+  final Color backgroundColor;
 
   /// Second Title of text area
   final String? secondTitle;
@@ -107,7 +111,7 @@ class InputTextAreaState extends State<InputTextArea> {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: Colors.white54,
+            color: widget.backgroundColor,
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(

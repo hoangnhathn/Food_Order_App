@@ -14,6 +14,7 @@ class LargeCard extends StatelessWidget {
   const LargeCard({
     required this.shop,
     required this.onTap,
+    this.isExpanded = false,
     Key? key,
   }) : super(key: key);
 
@@ -23,15 +24,25 @@ class LargeCard extends StatelessWidget {
   /// [onTap]
   final VoidCallback onTap;
 
+  ///
+  final bool isExpanded;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.only(
-          right: Constants.spaceWidth,
-        ),
-        width: context.sizes.width * Constants.sizeLargeCard,
+        margin: isExpanded
+            ? const EdgeInsets.symmetric(
+                vertical: 5,
+                horizontal: Constants.spaceWidth,
+              )
+            : const EdgeInsets.only(
+                right: Constants.spaceWidth,
+              ),
+        width: isExpanded
+            ? context.sizes.width
+            : context.sizes.width * Constants.sizeLargeCard,
         padding: const EdgeInsets.symmetric(
           vertical: 5,
           horizontal: 8,

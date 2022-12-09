@@ -1,6 +1,5 @@
 import 'package:sqflite/sqflite.dart';
 
-import '../../model/db/db_cart_info.dart';
 import '../db_tables.dart';
 import 'db_dao_mixin.dart';
 

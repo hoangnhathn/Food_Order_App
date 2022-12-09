@@ -5,8 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../common_widgets/app_bar/default_app_bar.dart';
 import '../../common_widgets/base/base_page.dart';
 import '../../common_widgets/space_box.dart';
+import '../../data/provider/app_navigator_provider.dart';
+import '../../navigation/app_route.dart';
 import '../../resource/constants.dart';
 import '../home/widget/item_category.dart';
+import '../search_list/model/search_condition_type.dart';
+import '../search_list/model/search_list_arguments.dart';
 import 'category_state.dart';
 import 'category_view_model.dart';
 
@@ -22,6 +26,10 @@ class CategoryPage extends BasePage {
 }
 
 class CategoryPageState extends BasePageState<CategoryPage> {
+
+  @override
+
+
   @override
   PreferredSizeWidget? buildAppBar(BuildContext context) => DefaultAppBar(
         onLeftTapped: () {
@@ -68,7 +76,9 @@ class CategoryPageState extends BasePageState<CategoryPage> {
                       final category = categories[index];
                       return ItemCategory(
                         category: category,
-                        onTap: () {},
+                        onTap: () {
+                          _navigateToSearchListPage(category.id);
+                        },
                         isPaddingRight: false,
                       );
                     },
@@ -81,5 +91,15 @@ class CategoryPageState extends BasePageState<CategoryPage> {
         ],
       ),
     );
+  }
+
+  void _navigateToSearchListPage(int categoryId) {
+    ref.read(appNavigatorProvider).navigateTo(
+          AppRoute.searchListPage,
+          arguments: SearchListArguments(
+            searchConditionType: SearchConditionType.viewByCategory,
+            categoryId: categoryId,
+          ),
+        );
   }
 }

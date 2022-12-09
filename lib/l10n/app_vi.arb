@@ -427,5 +427,20 @@
   "@orderExtraFoods": {
     "type": "text",
     "placeholders": {}
+  },
+  "resultTerm": "Kết quả",
+  "@resultTerm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shopTerm": "Cửa hàng",
+  "@shopTerm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "foodTerm": "Đồ ăn",
+  "@v": {
+    "type": "text",
+    "placeholders": {}
   }
 }
