@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../common_widgets/base/base_page.dart';
 import '../../data/model/db/db_order_item_info.dart';
 import '../../data/provider/app_navigator_provider.dart';
-import '../../data/repository/cart_list_respository.dart';
+import '../../data/repository/cart_list/cart_list_respository.dart';
 import '../../gen/assets.gen.dart';
 import '../../navigation/app_route.dart';
 import '../../resource/app_color.dart';

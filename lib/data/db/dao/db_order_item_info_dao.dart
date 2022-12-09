@@ -1,6 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 
 import '../../model/db/db_cart_info.dart';
+import '../../model/db/db_order_item_info.dart';
 import '../db_tables.dart';
 import 'db_dao_mixin.dart';
 
@@ -20,6 +21,9 @@ class DbOrderItemInfoDao with DbDaoMixin {
 
   final String _userInfoTableName = DbTableNames.userInfo;
   final String _foodInfoTableName = DbTableNames.foodInfo;
+  final String _orderInfoTableName = DbTableNames.orderInfo;
+  final String _orderInfoIdColumn = DbOrderInfoFields.id;
+  final String _orderInfoUserInfoIdColumn = DbOrderInfoFields.userInfoId;
   final String _userIdColumn = DbUserInfoFields.id;
   final String _foodIdInfoColumn = DbFoodInfoFields.id;
   final String _shopIdInfoColumn = DbFoodInfoFields.shopInfoId;
@@ -40,6 +44,17 @@ class DbOrderItemInfoDao with DbDaoMixin {
   //   );
   //   return maps.map((map) => DbCartInfo.fromJson(map)).toList();
   // }
+
+  Future<List<DbOrderItemInfo>> getOrderItemsByUser(int userInfoId) async {
+    final joinQuery =
+        "INNER JOIN $_orderInfoTableName ON $_tableName.$_orderInfoId = $_orderInfoTableName.$_orderInfoIdColumn WHERE $_orderInfoTableName.$_orderInfoUserInfoIdColumn = '$userInfoId'";
+    final select = 'SELECT * from $_tableName $joinQuery';
+    final maps = await getRaw(
+      queryString: select,
+      args: [],
+    );
+    return maps.map((map) => DbOrderItemInfo.fromJson(map)).toList();
+  }
 
 // Future<List<DbCartInfo>> getCartsByUserAndShop({
 //   required int userInfoId,
