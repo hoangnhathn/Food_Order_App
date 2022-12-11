@@ -8,6 +8,7 @@ import '../../../common_widgets/control/large_button.dart';
 import '../../../common_widgets/space_box.dart';
 import '../../../data/model/db/db_food_info.dart';
 import '../../../data/provider/modal_bottom_sheet_provider.dart';
+import '../../../data/provider/toast_provider.dart';
 import '../../../data/repository/final_confirm_order/final_confirm_order_repository.dart';
 import '../../../gen/assets.gen.dart';
 import '../../../resource/app_color.dart';
@@ -113,9 +114,8 @@ class FinalConfirmOrderPageState extends BasePageState<FinalConfirmOrderPage> {
                 title: AppLocalizations.of(context)!.placeOrder(
                   totalPrice.toInt().priceFormat.formatCurrency,
                 ),
-                onTap: () async {
-                  await ref.read(_provider.notifier).submitOrder();
-                  Navigator.of(context).pop();
+                onTap: () {
+                  submitOrder();
                 },
               ),
             ),
@@ -232,5 +232,14 @@ class FinalConfirmOrderPageState extends BasePageState<FinalConfirmOrderPage> {
     );
 
     await ref.read(_provider.notifier).refreshScreen();
+  }
+
+  Future<void> submitOrder() async {
+    await ref.read(_provider.notifier).submitOrder();
+    ref.read(toastProvider).showToast(
+          context: context,
+          message: AppLocalizations.of(context)!.orderSuccessMessage,
+        );
+    Navigator.of(context).pop();
   }
 }

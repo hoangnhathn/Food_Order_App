@@ -27,6 +27,9 @@ class Constants {
   static const String dummyImage =
       'https://images.foody.vn/res/g115/1148609/prof/s640x400/foody-upload-api-foody-mobile-av-08b82729-220822131550.jpeg';
 
+  static const String dummyProfileImage =
+      'https://scontent.fhan2-5.fna.fbcdn.net/v/t39.30808-1/312657397_1757227781317976_4264145091301170904_n.jpg?stp=dst-jpg_p100x100&_nc_cat=106&ccb=1-7&_nc_sid=7206a8&_nc_ohc=pGpUxEVrzG4AX9CJsiK&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fhan2-5.fna&oh=00_AfCJg_cH8N6MMFU2o92_Lw8BfhvbebGqOpu42wupIguicQ&oe=6397330D';
+
   /// Date Format
   static const dateFormatHHMM = 'HH:mm';
   static const dateFormatYYYYMMDDForwardSlash = 'yyyy/MM/dd';

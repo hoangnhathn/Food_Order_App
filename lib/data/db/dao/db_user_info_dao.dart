@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
-import '../../model/db/db_user_info.dart';
 
+import '../../model/db/db_user_info.dart';
 import '../db_tables.dart';
 import 'db_dao_mixin.dart';
 
@@ -10,6 +10,7 @@ class DbUserInfoDao with DbDaoMixin {
   });
 
   final String _tableName = DbTableNames.userInfo;
+  final String _name = DbUserInfoFields.name;
   final String _username = DbUserInfoFields.username;
   final String _password = DbUserInfoFields.password;
   final String _id = DbUserInfoFields.id;
@@ -40,5 +41,17 @@ class DbUserInfoDao with DbDaoMixin {
       return DbUserInfo.fromJson(map.first);
     }
     return null;
+  }
+
+  Future<void> updateName(
+    int id,
+    String name,
+  ) async {
+    final queryUpdate =
+        'UPDATE $_tableName SET ${DbUserInfoFields.name} = ? WHERE ${DbUserInfoFields.id} = ?';
+    await rawUpdate(
+      query: queryUpdate,
+      arguments: [name, id],
+    );
   }
 }

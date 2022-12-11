@@ -67,4 +67,8 @@ class FoodDetailTopViewModel extends StateNotifier<FoodDetailTopState> {
       carts: cartItemInfo,
     );
   }
+
+  int getShopInfoId() {
+    return state.shopInfo?.id ?? 0;
+  }
 }

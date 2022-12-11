@@ -2,32 +2,37 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../common_widgets/space_box.dart';
-import '../../../resource/app_size.dart';
-import '../../../resource/app_text_styles.dart';
-import '../../../resource/constants.dart';
+import '../../../../common_widgets/space_box.dart';
+import '../../../../gen/assets.gen.dart';
+import '../../../../resource/app_size.dart';
+import '../../../../resource/app_text_styles.dart';
+import '../../../../resource/constants.dart';
 
 class ProfileOverViewCard extends StatelessWidget {
   const ProfileOverViewCard({
     required this.orderCount,
     required this.cartCount,
-    required this.onTap,
+    required this.name,
+    required this.onTapChangeName,
     Key? key,
   }) : super(key: key);
 
-  /// orderCount
+  /// [name]
+  final String name;
+
+  /// [orderCount]
   final int orderCount;
 
   /// [cartCount]
   final int cartCount;
 
   /// [onTap]
-  final VoidCallback onTap;
+  final VoidCallback onTapChangeName;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTapChangeName,
       child: Stack(
         children: [
           Container(
@@ -49,13 +54,13 @@ class ProfileOverViewCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'User',
+                  AppLocalizations.of(context)!.userTerm,
                   style: AppTextStyles.fontPoppinsBold16.copyWith(
                     color: Colors.white,
                   ),
                 ),
                 Text(
-                  'user@gmail.com',
+                  name,
                   style: AppTextStyles.fontPoppinsRegular14.copyWith(
                     color: Colors.white60,
                   ),
@@ -129,12 +134,23 @@ class ProfileOverViewCard extends StatelessWidget {
             ),
           ),
           Positioned(
+            top: context.sizes.width / 8 + 20,
+            right: 20,
+            child: GestureDetector(
+              onTap: onTapChangeName,
+              child: Image.asset(
+                Assets.images.icEdit.path,
+                width: 18,
+                height: 18,
+              ),
+            ),
+          ),
+          Positioned(
             top: 0,
             left: 0,
             right: 0,
             child: CachedNetworkImage(
-              imageUrl:
-                  'https://scontent.fhan2-5.fna.fbcdn.net/v/t39.30808-1/312657397_1757227781317976_4264145091301170904_n.jpg?stp=dst-jpg_p100x100&_nc_cat=106&ccb=1-7&_nc_sid=7206a8&_nc_ohc=pGpUxEVrzG4AX9CJsiK&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fhan2-5.fna&oh=00_AfCJg_cH8N6MMFU2o92_Lw8BfhvbebGqOpu42wupIguicQ&oe=6397330D',
+              imageUrl: Constants.dummyProfileImage,
               imageBuilder: (context, image) {
                 return Container(
                   height: context.sizes.width / 4,

@@ -33,18 +33,13 @@ class DbCartInfoDao with DbDaoMixin {
     int userInfoId, {
     int? foodInfoId,
   }) async {
-    final joinQuery =
-        'INNER JOIN $_userInfoTableName ON $_tableName.$_userInfoId = $_userInfoTableName.$_userIdColumn';
-
-    var conditionQuery = '';
+    var conditionQuery = "WHERE $_userInfoId = '$userInfoId'";
     if (foodInfoId != null) {
-      conditionQuery = "$_foodInfoId = '$foodInfoId'";
+      conditionQuery += " AND $_foodInfoId = '$foodInfoId'";
     }
 
-    var select = 'SELECT * from $_tableName $joinQuery';
-    if (conditionQuery.isNotEmpty) {
-      select += ' WHERE $conditionQuery';
-    }
+    final select = 'SELECT * from $_tableName $conditionQuery';
+
     final maps = await getRaw(
       queryString: select,
       args: [],
@@ -56,13 +51,10 @@ class DbCartInfoDao with DbDaoMixin {
     required int userInfoId,
     required int shopInfoId,
   }) async {
-    final joinQuery =
-        'INNER JOIN $_userInfoTableName ON $_tableName.$_userInfoId = $_userInfoTableName.$_userIdColumn';
-
     final conditionQuery =
-        "$_foodInfoId IN (SELECT $_foodIdInfoColumn FROM $_foodInfoTableName WHERE $_shopIdInfoColumn = '$shopInfoId')";
+        "$_tableName.$_userInfoId = $userInfoId AND $_foodInfoId IN (SELECT $_foodIdInfoColumn FROM $_foodInfoTableName WHERE $_shopIdInfoColumn = '$shopInfoId')";
 
-    final select = 'SELECT * from $_tableName $joinQuery WHERE $conditionQuery';
+    final select = 'SELECT * from $_tableName WHERE $conditionQuery';
 
     final maps = await getRaw(
       queryString: select,

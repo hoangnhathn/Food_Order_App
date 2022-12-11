@@ -16,6 +16,7 @@ class CartListRepository extends Repository {
 
   Future<List<DbCartInfo>> getCartsByUser() async {
     final currentUserId = await getCurrentUserId();
+    print('Cart User Id $currentUserId');
     final dbCartInfoDao = await (await sqfLiteClient()).dbCartInfoDao;
     final carts = await dbCartInfoDao.getCartsByUser(currentUserId ?? 0);
     return carts;

@@ -10,13 +10,15 @@ import '../../../common_widgets/input_part/input_text_area.dart';
 import '../../../common_widgets/logo_image.dart';
 import '../../../common_widgets/space_box.dart';
 import '../../../data/model/enum/button_state.dart';
+import '../../../data/provider/toast_provider.dart';
 import '../../../data/repository/user_repository/user_repository.dart';
+import '../../../resource/app_color.dart';
 import '../../../resource/app_text_styles.dart';
 import '../../../resource/constants.dart';
 import 'sign_up_state.dart';
 import 'sign_up_view_model.dart';
 
-final signUpViewModel = StateNotifierProvider<SignUpViewModel, SignUpState>(
+final signUpViewModel = StateNotifierProvider.autoDispose<SignUpViewModel, SignUpState>(
   (ref) => SignUpViewModel(
     userRepository: UserRepository(ref),
     reader: ref,
@@ -49,6 +51,25 @@ class SignUpPageState extends BasePageState<SignUpPage> {
   Widget body(BuildContext context) {
     final signUpState = ref.watch(signUpViewModel);
     final formStatus = signUpState.formStatus;
+
+    ref.listen(signUpViewModel, (previous, next) {
+      if (next is SignUpState) {
+        if (next.formStatus == FormzStatus.submissionSuccess) {
+          ref.read(toastProvider).showToast(
+                context: context,
+                message: AppLocalizations.of(context)!.signUpSuccessMessage,
+              );
+          Navigator.of(context).pop();
+        } else if (next.formStatus == FormzStatus.submissionFailure) {
+          ref.read(toastProvider).showToast(
+                context: context,
+                message: AppLocalizations.of(context)!.signUpErrorMessage,
+                color: context.colors.error,
+                backgroundColor: context.colors.errorLight,
+              );
+        }
+      }
+    });
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
@@ -95,6 +116,21 @@ class SignUpPageState extends BasePageState<SignUpPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      InputTextArea(
+                        title: AppLocalizations.of(context)!.termName,
+                        maxLength: Constants.maxLengthUsername,
+                        onChanged: (value) {
+                          ref.read(signUpViewModel.notifier).changeName(
+                            value,
+                          );
+                        },
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                            RegExp(Constants.characterAndNumberOnlyRegex),
+                          ),
+                        ],
+                      ),
+                      const SpaceBox.height(),
                       InputTextArea(
                         title: AppLocalizations.of(context)!.usernameEmail,
                         maxLength: Constants.maxLengthUsername,
