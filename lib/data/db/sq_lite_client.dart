@@ -84,9 +84,10 @@ extension SQFLiteClientCreateTableExtension on SQFLiteClient {
     return db.execute(
       '''
         CREATE TABLE ${DbTableNames.userInfo}(
-          ${DbLoginInfoFields.id} INTEGER PRIMARY KEY AUTOINCREMENT,
-          ${DbLoginInfoFields.username} TEXT UNIQUE,
-          ${DbLoginInfoFields.password} TEXT
+          ${DbUserInfoFields.id} INTEGER PRIMARY KEY AUTOINCREMENT,
+          ${DbUserInfoFields.name} TEXT UNIQUE,
+          ${DbUserInfoFields.username} TEXT UNIQUE,
+          ${DbUserInfoFields.password} TEXT
         )
       ''',
     );

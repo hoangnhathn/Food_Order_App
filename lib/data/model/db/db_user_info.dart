@@ -10,6 +10,7 @@ part 'db_user_info.g.dart';
 @freezed
 class DbUserInfo extends DbBaseModel with _$DbUserInfo {
   factory DbUserInfo({
+    @JsonKey(name: DbUserInfoFields.name) required String name,
     @JsonKey(name: DbUserInfoFields.username) required String username,
     @JsonKey(name: DbUserInfoFields.password) required String password,
     @JsonKey(name: DbUserInfoFields.id) int? id,

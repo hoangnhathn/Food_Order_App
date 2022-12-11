@@ -20,6 +20,7 @@ class HomeState with _$HomeState {
 
   factory HomeState.initial() => HomeState(
         userInfo: DbUserInfo(
+          name: '',
           username: '',
           password: '',
         ),

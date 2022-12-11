@@ -108,6 +108,16 @@ mixin DbDaoMixin<T extends DbBaseModel> {
     );
   }
 
+  Future<void> rawUpdate({
+    required String query,
+    List<Object?>? arguments,
+  }) async {
+    await db.rawUpdate(
+      query,
+      arguments,
+    );
+  }
+
   Future<int> updateTwoFields({
     required DbBaseModel object,
     required String field1,

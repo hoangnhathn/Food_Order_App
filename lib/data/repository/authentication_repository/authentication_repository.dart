@@ -24,6 +24,7 @@ class AuthenticationRepository extends Repository {
     final userInfo = await (await (await sqfLiteClient()).dbUserInfoDao)
         .loginManual(username: username, password: password);
     if (userInfo != null) {
+      print('User Info Id ${userInfo.id}');
       /// Save Key User Id
       await secureStorage.write(
         key: keyAppUserID,

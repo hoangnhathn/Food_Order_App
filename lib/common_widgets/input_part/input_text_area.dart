@@ -118,6 +118,7 @@ class InputTextAreaState extends State<InputTextArea> {
               horizontal: 12,
             ),
             child: TextFormField(
+              initialValue: widget.initialText,
               onChanged: widget.onChanged,
               maxLength: widget.maxLength,
               obscureText: widget.obSecureText,

@@ -454,7 +454,42 @@
     "placeholders": {}
   },
   "foodTerm": "Đồ ăn",
-  "@v": {
+  "@foodTerm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "signUpSuccessMessage": "Đăng kí thành công!",
+  "@signUpSuccessMessage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "signUpErrorMessage": "Đăng kí thất bại. Tài khoản đã được đăng kí trước đó!",
+  "@signUpErrorMessage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "termName": "Tên",
+  "@termName": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "orderSuccessMessage": "Order thành công",
+  "@orderSuccessMessage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "userTerm": "User",
+  "@userTerm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "updateProfile": "Cập nhật Profile",
+  "@updateProfile": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "termUpdate": "Cập nhật",
+  "@termUpdate": {
     "type": "text",
     "placeholders": {}
   }

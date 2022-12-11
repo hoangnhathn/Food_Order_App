@@ -33,6 +33,8 @@ class FoodDetailTopRepository extends Repository {
       userInfoId: currentUserId ?? 1,
       shopInfoId: shopInfoId,
     );
+    print('Current User Id $currentUserId Cart Item Info $cartItemInfo');
+
     return cartItemInfo;
   }
 

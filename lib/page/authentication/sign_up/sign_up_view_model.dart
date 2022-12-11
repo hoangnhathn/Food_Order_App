@@ -8,6 +8,7 @@ import '../../../data/repository/user_repository/user_repository.dart';
 import '../model/password.dart';
 import '../model/username.dart';
 import 'model/confirm_password.dart';
+import 'model/name.dart';
 import 'sign_up_state.dart';
 
 class SignUpViewModel extends StateNotifier<SignUpState> {
@@ -20,12 +21,26 @@ class SignUpViewModel extends StateNotifier<SignUpState> {
 
   final UserRepository userRepository;
 
+  void changeName(String value) {
+    final name = Name.dirty(value);
+    state = state.copyWith(
+      name: name,
+      formStatus: Formz.validate([
+        name,
+        state.userName,
+        state.password,
+        state.confirmPassword,
+      ]),
+    );
+  }
+
   void changeUsername(String value) {
     final userName = UserName.dirty(value);
     state = state.copyWith(
       userName: userName,
       formStatus: Formz.validate([
         userName,
+        state.name,
         state.password,
         state.confirmPassword,
       ]),
@@ -44,6 +59,7 @@ class SignUpViewModel extends StateNotifier<SignUpState> {
           : state.confirmPassword,
       formStatus: Formz.validate([
         password,
+        state.name,
         state.userName,
         if (state.confirmPassword != const ConfirmPassword.pure())
           ConfirmPassword.dirty(
@@ -65,6 +81,7 @@ class SignUpViewModel extends StateNotifier<SignUpState> {
       confirmPassword: confirmPassword,
       formStatus: Formz.validate([
         confirmPassword,
+        state.name,
         state.userName,
         state.password,
       ]),
@@ -77,11 +94,18 @@ class SignUpViewModel extends StateNotifier<SignUpState> {
     try {
       final result = await userRepository.createUser(
         userInfo: DbUserInfo(
+          name: state.name.value ?? '',
           username: state.userName.value ?? '',
           password: state.password.value ?? '',
         ),
       );
+      state = state.copyWith(
+        formStatus: FormzStatus.submissionSuccess,
+      );
     } catch (e) {
+      state = state.copyWith(
+        formStatus: FormzStatus.submissionFailure,
+      );
       Logger().d('');
     }
 

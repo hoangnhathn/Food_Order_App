@@ -15,6 +15,7 @@ import '../../../resource/app_color.dart';
 import '../../../resource/app_text_styles.dart';
 import '../../../resource/constants.dart';
 import '../../../utils/extension/int_extension.dart';
+import '../../../utils/extension/string_extension.dart';
 import '../final_confirm_order/model/final_confirm_order_arguments.dart';
 import '../order/food_detail_order_page.dart';
 import '../order/model/food_detail_order_arguments.dart';
@@ -214,7 +215,7 @@ class FoodDetailPageState extends BasePageState<FoodDetailPage>
                 ),
                 const SpaceBox.width(3),
                 Text(
-                  '${shopInfo.rating.toString()} (${shopInfo.comment}+ Bình luận)',
+                  '${shopInfo.rating.toString()} ${shopInfo.comment.formatComment}',
                   style: AppTextStyles.fontPoppinsRegular15.copyWith(
                     color: Colors.black,
                   ),
@@ -244,7 +245,7 @@ class FoodDetailPageState extends BasePageState<FoodDetailPage>
     await ref.read(appNavigatorProvider).navigateTo(
           AppRoute.finalConfirmationOrderPage,
           arguments: FinalConfirmOrderArguments(
-            shopId: widget.arguments.shopId ?? 0,
+            shopId: ref.read(_provider.notifier).getShopInfoId(),
           ),
         );
     await ref.read(_provider.notifier).refreshCart();

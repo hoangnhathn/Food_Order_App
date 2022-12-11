@@ -27,4 +27,8 @@ extension IntExtension on int {
   String get formatQuantity {
     return '$this x';
   }
+
+  String get formatComment {
+    return '($this+ Bình luận)';
+  }
 }

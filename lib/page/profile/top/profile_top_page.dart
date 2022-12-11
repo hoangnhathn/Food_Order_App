@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../common_widgets/app_bar/default_app_bar.dart';
-import '../../common_widgets/base/base_page.dart';
-import '../../common_widgets/space_box.dart';
-import '../../data/repository/profile/profile_repository.dart';
-import '../../resource/app_text_styles.dart';
-import 'profile_state.dart';
-import 'profile_view_model.dart';
+import '../../../common_widgets/app_bar/default_app_bar.dart';
+import '../../../common_widgets/base/base_page.dart';
+import '../../../common_widgets/space_box.dart';
+import '../../../data/provider/modal_bottom_sheet_provider.dart';
+import '../../../data/repository/profile/profile_repository.dart';
+import '../../../resource/app_text_styles.dart';
+import '../update/model/profile_update_arguments.dart';
+import '../update/profile_update_page.dart';
+import 'profile_top_state.dart';
+import 'profile_top_view_model.dart';
 import 'widget/profile_view_card.dart';
 
 final _provider =
-    StateNotifierProvider.autoDispose<ProfileViewModel, ProfileState>(
+    StateNotifierProvider.autoDispose<ProfileViewModel, ProfileTopState>(
   (ref) => ProfileViewModel(
     profileRepository: ProfileRepository(ref),
     reader: ref,
@@ -59,7 +62,25 @@ class ProfilePageState extends BasePageState<ProfilePage> {
           ),
           const SpaceBox.height(10),
           ProfileOverViewCard(
-            onTap: () {},
+            name: state.name,
+            onTapChangeName: () {
+              var currentName = state.name;
+              ref.read(modalBottomSheetProvider).showModal(
+                builder: (context) {
+                  return ProfileUpdatePage(
+                    onTap: () {
+                      ref.read(_provider.notifier).changeName(currentName);
+                    },
+                    arguments: ProfileUpdateArguments(
+                      name: state.name,
+                    ),
+                    onChanged: (value) {
+                      currentName = value;
+                    },
+                  );
+                },
+              );
+            },
             orderCount: state.orderCount,
             cartCount: state.cartCount,
           ),

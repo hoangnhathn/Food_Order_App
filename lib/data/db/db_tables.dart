@@ -23,6 +23,7 @@ class DbUserInfoFields {
   DbUserInfoFields._();
 
   static const id = 'id';
+  static const name = 'name';
   static const username = 'username';
   static const password = 'password';
 }

@@ -5,6 +5,10 @@ class AppColor {
     required this.activeButton,
     required this.inActiveButton,
     required this.lightBlue,
+    required this.success,
+    required this.successLight,
+    required this.error,
+    required this.errorLight,
     required this.disable,
     required this.border,
     required this.gradientLargeButton,
@@ -26,6 +30,18 @@ class AppColor {
 
   /// Disable
   final Color disable;
+
+  /// Success Light
+  final Color successLight;
+
+  /// Success
+  final Color success;
+
+  /// Error Light
+  final Color errorLight;
+
+  /// Error
+  final Color error;
 
   /// Border
   final Color border;
@@ -67,6 +83,10 @@ class AppColor {
     activeButton: Color(0xfffa4a0c),
     inActiveButton: Color(0xffa19d9d),
     lightBlue: Color.fromARGB(255, 32, 148, 246),
+    success: Color(0xFF7BFF9D),
+    successLight: Color(0xFFE2FFEB),
+    error: Color(0xFFFFA4A9),
+    errorLight: Color(0xFFFFEDEE),
     disable: Color(0xFFE7E9EB),
     border: Color(0xFFE7E9EB),
     gradientLargeButton: [

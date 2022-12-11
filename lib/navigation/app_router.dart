@@ -11,7 +11,7 @@ import '../page/food_detail/order/model/food_detail_order_arguments.dart';
 import '../page/food_detail/top/food_detail_top_page.dart';
 import '../page/food_detail/top/model/food_detail_top_arguments.dart';
 import '../page/home/home_page.dart';
-import '../page/profile/profile_page.dart';
+import '../page/profile/top/profile_top_page.dart';
 import '../page/search_list/model/search_list_arguments.dart';
 import '../page/search_list/search_list_page.dart';
 import '../page/splash/splash_page.dart';
